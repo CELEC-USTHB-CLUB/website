@@ -21,8 +21,8 @@ class CreateMemberRequest extends FormRequest {
      */
     public function rules() {
         return [
-            "fullname"                  =>  "required|max:255",
-            "email"                     =>  "required|unique:members|max:255|email:rfc,dns",
+            "fullname"                  =>  "required|max:100",
+            "email"                     =>  "required|unique:members|max:120|email:rfc,dns",
             "birthdate"                 =>  ["required"],
             "registration_number"       =>  "required|unique:members|numeric",
             "is_usthb_student"          =>  ["required"],

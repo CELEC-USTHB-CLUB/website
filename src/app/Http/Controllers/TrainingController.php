@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Actions\TrainingRegistrationAction;
+use App\Http\Requests\TrainingRegistrationRequest;
+use App\Http\Resources\TrainingCollection;
+use App\Http\Resources\TrainingResource;
+use App\Training;
+use App\TrainingRegistration;
+use Illuminate\Http\Request;
+
+class TrainingController extends Controller {
+
+    public function all(Request $request) {
+        if ($request->has("filter") AND count($request->filter) > 0) {
+            return TrainingResource::collection(Training::with("image")->whereJsonContains("tags", $request->filter)->paginate(12));
+        }
+        return TrainingResource::collection(Training::with("image")->paginate(12));
+    }
+
+    public function get(Training $training) {
+        return new TrainingResource($training);
+    }
+
+    public function register(
+        Training $training,
+        TrainingRegistrationRequest $request, 
+        TrainingRegistrationAction $trainingRegistrationAction
+    ) : TrainingRegistration {
+
+        if ($training->isClosed()) {
+            abort(403, "Registration expired");
+        }
+        return $trainingRegistrationAction->handle(
+            $training,
+            $request->fullname,
+            $request->email,
+            $request->registration_number,
+            $request->phone,
+            $request->is_celec_memeber,
+            $request->study_level,
+            $request->study_field,
+            $request->course_goals,
+        );
+    }
+
+}
