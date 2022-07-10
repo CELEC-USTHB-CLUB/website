@@ -141,9 +141,38 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'fullname' => [
+            'required' => 'le nom complet est requis',
         ],
+        'email' => [
+            'required' => 'le email est requis',
+            'unique' => 'Oups, nous avons déjà enregistré cet e-mail',
+            'email' => 'Le champ email doit être un vrai email',
+        ],
+        'birthdate' => [
+            'required' => 'la date de naissance est requise',
+        ],
+        'registration_number' => [
+            'required' => 'le matricule est requis',
+            "unique" => "Oups, le matricule est déjà enregistré",
+            "numeric" => "le matricule doit être de type numérique",
+        ],
+        'is_usthb_student' => [
+            'required' => 'veuillez sélectionner si vous êtes un étudiant usthb',
+        ],
+        'study_level' => [
+            'required' => "le niveau d'étude est requis",
+        ],
+        'study_field' => [
+            'required' => "le domaine d'étude est requis",
+        ],
+        'motivation' => [
+            'required' => 'la motivation est nécessaire',
+        ],
+        "cv" => [
+            "mimetypes" => "le cv doit être un fichier word ou pdf",
+            "size" => "Le cv doit être :size kilo-octets."
+        ]
     ],
 
     /*
