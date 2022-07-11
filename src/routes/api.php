@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
@@ -23,4 +25,12 @@ Route::GROUP(["prefix" => "trainings"], function() {
     Route::GET("get", [TrainingController::class, "all"]);
     Route::GET("{training:slug}", [TrainingController::class, "get"]);
     Route::POST("{training:slug}/register", [TrainingController::class, "register"]);
+});
+
+Route::GROUP(["prefix" => "team"], function() {
+    Route::GET("all", [TeamController::class, "all"]);
+});
+
+Route::GROUP(["prefix" => "contact"], function() {
+    Route::POST("create", [ContactController::class, "create"]);
 });

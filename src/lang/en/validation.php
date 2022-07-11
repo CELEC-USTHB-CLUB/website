@@ -139,7 +139,7 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
+    /**
     'custom' => [
         'fullname' => [
             'required' => 'le nom complet est requis',
@@ -174,6 +174,7 @@ return [
             "size" => "Le cv doit être :size kilo-octets."
         ]
     ],
+        **/
 
     /*
     |--------------------------------------------------------------------------

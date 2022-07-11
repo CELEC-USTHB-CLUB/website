@@ -2,25 +2,22 @@
 
 namespace Tests\Feature;
 
-use App\Training;
+use App\Team;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TestGettingAllCourses extends TestCase
+class TeamTest extends TestCase
 {
     use DatabaseTransactions;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        Training::factory()->count(100)->create()
-        $response = $this->get('/');
-        
+
+
+    public function testGettingTeam() {
+        Team::factory()->hasImage(1)->count(10)->create();
+        $response = $this->get("/api/team/all");
         $response->assertStatus(200);
+        $response->assertJsonCount(10, "data");
     }
+
 }
