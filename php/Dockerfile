@@ -20,5 +20,10 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-install zip
 RUN pecl install zlib zip
 RUN pecl install redis
+RUN apt-get install libonig-dev -y
+RUN docker-php-ext-install mbstring
+RUN apt-get install libpng-dev -y
+RUN docker-php-ext-install gd
 RUN docker-php-ext-enable redis
+RUN docker-php-ext-install exif
 RUN apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
