@@ -216,6 +216,9 @@ return [
         // Enables Laravel cache method for
         // storing cache values between requests
         'cache' => false,
+        "admin" => [
+            "bg_image" => "a.jpg"
+        ]
     ],
 
     // Activate compass when environment is NOT local
