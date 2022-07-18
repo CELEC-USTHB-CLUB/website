@@ -24,8 +24,8 @@ class SoreContactRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" =>  "required|max:120|email:rfc,dns",
-            "message" => "required|max:2500"
+            'email' => 'required|max:120|email:rfc,dns',
+            'message' => 'required|max:2500',
         ];
     }
 }

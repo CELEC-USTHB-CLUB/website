@@ -6,14 +6,15 @@ use App\Traits\RelationshipsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cv extends Model {
+class Cv extends Model
+{
     use HasFactory;
     use RelationshipsTrait;
 
-    protected $fillable = ["path"];
+    protected $fillable = ['path'];
 
-    public function cvable() {
+    public function cvable()
+    {
         return $this->morphTo();
     }
-
 }

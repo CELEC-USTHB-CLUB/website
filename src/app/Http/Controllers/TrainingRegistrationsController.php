@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\TrainingRegistrationsExport;
 use App\Training;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TrainingRegistrationsController extends Controller

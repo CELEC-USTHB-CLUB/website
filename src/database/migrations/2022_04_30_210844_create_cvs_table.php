@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
-            $table->string("cvable_type");
-            $table->integer("cvable_id");
-            $table->string("path");
+            $table->string('cvable_type');
+            $table->integer('cvable_id');
+            $table->string('path');
             $table->timestamps();
         });
     }

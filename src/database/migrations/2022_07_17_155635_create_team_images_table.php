@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('team_images', function (Blueprint $table) {
             $table->id();
-            $table->string("path");
-            $table->integer("team_id");
+            $table->string('path');
+            $table->integer('team_id');
             $table->timestamps();
         });
     }

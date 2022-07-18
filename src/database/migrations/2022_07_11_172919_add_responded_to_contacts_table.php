@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->boolean("done");
+            $table->boolean('done');
         });
     }
 

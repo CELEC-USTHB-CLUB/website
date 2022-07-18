@@ -15,13 +15,14 @@ class TeamResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "fullname" => $this->fullname,
-            "about" => $this->about,
-            "email" => $this->email,
-            "linked_in" => $this->linked_in,
-            "image" => $this->image->path
+            'id' => $this->id,
+            'fullname' => $this->fullname,
+            'about' => $this->about,
+            'email' => $this->email,
+            'linked_in' => $this->linked_in,
+            'image' => $this->image->path,
         ];
+
         return parent::toArray($request);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Training>
  */
@@ -17,10 +18,10 @@ class TrainingFactory extends Factory
     public function definition()
     {
         return [
-            "title" => $this->faker->catchPhrase(),
-            "description" => $this->faker->paragraph(),
-            "tags" => ["php", "javascript", "laravel"],
-            "closing_inscription_at" => Carbon::now()
+            'title' => $this->faker->catchPhrase(),
+            'description' => $this->faker->paragraph(),
+            'tags' => ['php', 'javascript', 'laravel'],
+            'closing_inscription_at' => Carbon::now(),
         ];
     }
 }

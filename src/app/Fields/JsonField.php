@@ -14,7 +14,7 @@ class JsonFormField extends AbstractHandler
             'row' => $row,
             'options' => $options,
             'dataType' => $dataType,
-            'dataTypeContent' => $dataTypeContent
+            'dataTypeContent' => $dataTypeContent,
         ]);
     }
 }

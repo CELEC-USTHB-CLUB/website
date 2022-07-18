@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Tag;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class GettingTagsTest extends TestCase
 {
@@ -18,6 +16,6 @@ class GettingTagsTest extends TestCase
         $response = $this->get('/api/tags/get');
 
         $response->assertStatus(200);
-        $response->assertJsonCount(50, "data");
+        $response->assertJsonCount(50, 'data');
     }
 }

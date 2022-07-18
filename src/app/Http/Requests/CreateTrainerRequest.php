@@ -24,16 +24,16 @@ class CreateTrainerRequest extends FormRequest
     public function rules()
     {
         return [
-            "fullname"              =>  "required|max:100",
-            "email"                 =>  "required|max:120|email:rfc,dns",
-            "is_usthb_student"      =>  "required",
-            "study_level"           =>  "required",
-            "study_field"           =>  "required",
-            "projects"              =>  "required",
-            "phone"                 =>  "required",
-            "course_title"          =>  "required|max:120",
-            "course_description"    =>  "required",
-            "cv"                    =>  "required|file|max:5120|mimes:pdf"
+            'fullname' => 'required|max:100',
+            'email' => 'required|max:120|email:rfc,dns',
+            'is_usthb_student' => 'required',
+            'study_level' => 'required',
+            'study_field' => 'required',
+            'projects' => 'required',
+            'phone' => 'required',
+            'course_title' => 'required|max:120',
+            'course_description' => 'required',
+            'cv' => 'required|file|max:5120|mimes:pdf',
         ];
     }
 }

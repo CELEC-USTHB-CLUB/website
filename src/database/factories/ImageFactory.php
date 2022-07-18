@@ -17,7 +17,7 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            "path" => "images/cover.jpg"
+            'path' => 'images/cover.jpg',
         ];
     }
 }

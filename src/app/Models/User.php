@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends \TCG\Voyager\Models\User {
+class User extends \TCG\Voyager\Models\User
+{
     use HasFactory;
 
     protected $fillable = [
@@ -14,6 +14,5 @@ class User extends \TCG\Voyager\Models\User {
         'password',
     ];
 
-    protected $hidden = ["password"];
-
+    protected $hidden = ['password'];
 }

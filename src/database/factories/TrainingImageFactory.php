@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Tag>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TrainingImage>
  */
-class TagFactory extends Factory
+class TrainingImageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->colorName(),
-            'hex_color' => $this->faker->hexColor(),
+            'path' => 'images/cover.jpg',
         ];
     }
 }

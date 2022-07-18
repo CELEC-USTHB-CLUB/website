@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->string("fullname");
-            $table->longText("about");
-            $table->string("email");
-            $table->string("linked_in")->nullable();
+            $table->string('fullname');
+            $table->longText('about');
+            $table->string('email');
+            $table->string('linked_in')->nullable();
             $table->timestamps();
         });
     }

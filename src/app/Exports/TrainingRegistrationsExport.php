@@ -8,11 +8,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TrainingRegistrationsExport implements FromCollection, WithHeadings
 {
-
-    public function __construct(public int $id) 
+    public function __construct(public int $id)
     {
     }
-
 
     public function headings(): array
     {
@@ -32,10 +30,10 @@ class TrainingRegistrationsExport implements FromCollection, WithHeadings
     }
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return TrainingRegistration::select(["id", "training_id", "fullname", "email", "phone", "is_celec_memeber", "registration_number", "study_level", "study_field", "course_goals", "created_at"])->where("training_id", $this->id)->get();
+        return TrainingRegistration::select(['id', 'training_id', 'fullname', 'email', 'phone', 'is_celec_memeber', 'registration_number', 'study_level', 'study_field', 'course_goals', 'created_at'])->where('training_id', $this->id)->get();
     }
 }

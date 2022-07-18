@@ -33,9 +33,8 @@ class ExportTrainingRegisrationsAction extends AbstractAction
         return url('admin/trainings/exportRegistrations/'.$this->data->id);
     }
 
-    public function shouldActionDisplayOnDataType() 
+    public function shouldActionDisplayOnDataType()
     {
-    	return $this->dataType->slug === "trainings";
+        return $this->dataType->slug === 'trainings';
     }
-
 }

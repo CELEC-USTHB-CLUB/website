@@ -9,5 +9,5 @@ class TrainingImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["path"];
+    protected $fillable = ['path'];
 }

@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("slug");
-            $table->longText("description");
-            $table->text("closing_inscription_at");
+            $table->string('title');
+            $table->string('slug');
+            $table->longText('description');
+            $table->text('closing_inscription_at');
             $table->timestamps();
         });
     }

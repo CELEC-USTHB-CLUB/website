@@ -24,14 +24,14 @@ class TrainingRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname' => "required",
-            'email' => "required",
-            'registration_number' => "required",
-            'phone' => "required",
-            'is_celec_memeber' => "required",
-            'study_level' => "required",
-            'study_field' => "required",
-            'course_goals' => "required"
+            'fullname' => 'required',
+            'email' => 'required',
+            'registration_number' => 'required',
+            'phone' => 'required',
+            'is_celec_memeber' => 'required',
+            'study_level' => 'required',
+            'study_field' => 'required',
+            'course_goals' => 'required',
         ];
     }
 }

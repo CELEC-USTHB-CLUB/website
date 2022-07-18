@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
-            $table->string("fullname");
-            $table->string("email");
-            $table->boolean("is_usthb_student");
-            $table->string("study_level");
-            $table->string("study_field");
-            $table->longText("projects")->nullable();
-            $table->string("phone");
-            $table->string("course_title");
-            $table->longText("course_description");
-            $table->string("linked_in")->nullable();
+            $table->string('fullname');
+            $table->string('email');
+            $table->boolean('is_usthb_student');
+            $table->string('study_level');
+            $table->string('study_field');
+            $table->longText('projects')->nullable();
+            $table->string('phone');
+            $table->string('course_title');
+            $table->longText('course_description');
+            $table->string('linked_in')->nullable();
             $table->timestamps();
         });
     }
