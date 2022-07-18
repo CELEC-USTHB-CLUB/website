@@ -4,3 +4,4 @@ meilisearch
 maria/
 maria/*
 maria
+docker-compose.yml

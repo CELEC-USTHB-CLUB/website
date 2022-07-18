@@ -12,7 +12,7 @@ services:
     networks:
       - celec-website-network
     environment:
-      MEILI_MASTER_KEY: 918c221d6e3cd3217311ff59228691e3
+      MEILI_MASTER_KEY: PUT_HERE_RANDOM_KEY
   npm-web:
     container_name: npm_celec_web
     image: node:latest
