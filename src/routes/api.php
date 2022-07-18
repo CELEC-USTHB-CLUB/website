@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TeamController;
@@ -32,4 +33,8 @@ Route::GROUP(['prefix' => 'team'], function () {
 
 Route::GROUP(['prefix' => 'contact'], function () {
     Route::POST('create', [ContactController::class, 'create']);
+});
+
+Route::GROUP(['prefix' => 'events'], function () {
+    Route::GET('all', [EventController::class, 'all']);
 });

@@ -12,6 +12,8 @@ class Team extends Model
 
     protected $fillable = ['fullname', 'about', 'email', 'linked_in'];
 
+    public $allow_export_all = false;
+
     public function image()
     {
         return $this->hasOne(TeamImage::class);

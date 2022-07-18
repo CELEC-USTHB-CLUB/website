@@ -15,6 +15,8 @@ class Training extends Model
 
     protected $fillable = ['title', 'slug', 'description', 'tags', 'closing_inscription_at'];
 
+    public $allow_export_all = true;
+
     protected $casts = [
         'closing_inscription_at' => 'datetime:Y-m-d h:i',
         'tags' => 'json',
