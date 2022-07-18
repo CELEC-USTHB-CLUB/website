@@ -3,11 +3,17 @@
 namespace App;
 
 use App\Cv;
+use App\Exports\MemberExport;
+use App\Traits\RelationshipsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Trainer extends Model {
     use HasFactory;
+    use RelationshipsTrait;
+
+    public $allow_export_all = true;
+    public $export_handler = MemberExport::class;
 
     protected $fillable = [
         "fullname",

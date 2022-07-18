@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Image;
+use App\Models\TrainingImage;
 use App\Training;
 use App\TrainingRegistration;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class Training extends Model {
 
 
     public function image() {
-        return $this->morphOne(Image::class, "imageable");
+        return $this->hasOne(TrainingImage::class);
     }
 
     public function isClosed() : bool {

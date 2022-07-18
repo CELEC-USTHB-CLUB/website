@@ -13,6 +13,7 @@ class MemberController extends Controller {
         if ($request->skills !== null) {
             $skills = explode(",", $request->skills);
         }
+
         if ($request->hasFile("cv")) {
             $request->validate([
                 "cv" => "mimetypes:application/msword,application/pdf|max:5042",
