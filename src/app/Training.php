@@ -13,13 +13,15 @@ class Training extends Model
 {
     use HasFactory, Searchable;
 
-    protected $fillable = ['title', 'slug', 'description', 'tags', 'closing_inscription_at'];
+    protected $fillable = ['title', 'slug', 'description', 'tags', 'closing_inscription_at', 'is_closed', 'starting_at', 'ending_at', 'location'];
 
     public $allow_export_all = true;
 
     protected $casts = [
         'closing_inscription_at' => 'datetime:Y-m-d h:i',
         'tags' => 'json',
+        'starting_at' => 'datetime: Y-m-d',
+        'ending_at' => 'datetime: Y-m-d'
     ];
 
     protected static function boot()
@@ -37,7 +39,7 @@ class Training extends Model
 
     public function isClosed(): bool
     {
-        return Carbon::now()->greaterThanOrEqualTo($this->closing_inscription_at);
+        return ($this->is_closed) ? true : Carbon::now()->greaterThanOrEqualTo($this->closing_inscription_at);
     }
 
     public function registrations()
