@@ -1,4 +1,5 @@
 @extends('voyager::master')
+@livewireStyles
 
 @section('page_title', __('voyager::generic.view').' '.$dataType->getTranslatedAttribute('display_name_singular'))
 
@@ -181,33 +182,27 @@
                     	@endforeach
                     @endif
                     @if($dataType->model_name === "App\Training")
-                    <div class="form-group" style="border-bottom:0;">
-                        <div class="col col-12">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            @if(session('suc'))
-                                <div class="alert alert-success">
-                                    <ul>
-                                        <li>{{ session('suc') }}</li>
-                                    </ul>
-                                </div>
-                            @endif
-                            <form method="POST" action="{{ url('admin/trainings/invitations') }}" enctype="multipart/form-data">
-                                @csrf
-                                <h3 class="panel-title">Import users list</h3>
-                                <input type="file" class="input-control" name="file">
-                                <input type="hidden" value="{{ $id }}" class="input-control" name="id">
-                                <button class="btn btn-success">Generate invitations</button>
-                            </form>
+                        <div class="form-group" style="border-bottom:0;">
+                            <div class="col col-12">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if(session('suc'))
+                                    <div class="alert alert-success">
+                                        <ul>
+                                            <li>{{ session('suc') }}</li>
+                                        </ul>
+                                    </div>
+                                @endif
+                                @livewire('generate-invitation', ['id' => $id])
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>  
             </div>
@@ -262,4 +257,5 @@
         });
 
     </script>
+    @livewireScripts
 @stop

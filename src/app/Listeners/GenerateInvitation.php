@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Imports\UsersImport;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GenerateInvitation implements ShouldQueue
@@ -27,6 +26,6 @@ class GenerateInvitation implements ShouldQueue
      */
     public function handle($event)
     {
-        Excel::import(new UsersImport($event->training), storage_path('app/'.$event->uploadedExcelFile)); 
+        Excel::import(new UsersImport($event->training), storage_path('app/'.$event->uploadedExcelFile));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Invitation;
 use App\Models\TrainingImage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,7 +22,7 @@ class Training extends Model
         'closing_inscription_at' => 'datetime:Y-m-d h:i',
         'tags' => 'json',
         'starting_at' => 'datetime: Y-m-d',
-        'ending_at' => 'datetime: Y-m-d'
+        'ending_at' => 'datetime: Y-m-d',
     ];
 
     protected static function boot()
@@ -46,4 +47,11 @@ class Training extends Model
     {
         return $this->hasMany(TrainingRegistration::class);
     }
+
+
+    public function invitations(): void
+    {
+        $this->hasMany(Invitation::class);
+    }
+
 }
