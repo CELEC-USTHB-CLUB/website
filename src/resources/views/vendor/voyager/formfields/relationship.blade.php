@@ -57,7 +57,11 @@
             @endphp
 
             @if(isset($query))
-                <p>{{ $query->{$options->label} }}</p>
+                @if(get_class($query) == 'App\\Models\\MemberImage')
+                     <img class="img-responsive"  src="{{ Voyager::image($query->{$options->label}) }}">
+                @else
+                    <p>{{ $query->{$options->label} }}</p>
+                @endif
             @else
                 <p>{{ __('voyager::generic.no_results') }}</p>
             @endif
