@@ -22,6 +22,8 @@ class TrainingFactory extends Factory
             'description' => $this->faker->paragraph(),
             'tags' => ['php', 'javascript', 'laravel'],
             'closing_inscription_at' => Carbon::now(),
+            'location' => 'xxx',
+            
         ];
     }
 }

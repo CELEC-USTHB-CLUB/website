@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exports\MemberExport;
+use App\Models\MemberImage;
 use App\Traits\RelationshipsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,4 +42,10 @@ class Member extends Model
     {
         return $this->morphOne(Cv::class, 'cvable');
     }
+
+    public function image()
+    {
+        return $this->hasOne(MemberImage::class);
+    }
+
 }

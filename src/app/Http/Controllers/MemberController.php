@@ -19,6 +19,13 @@ class MemberController extends Controller
                 'cv' => 'mimetypes:application/msword,application/pdf|max:5042',
             ]);
         }
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'mimetypes:image/jpeg,image/jpg,image/png|max:1042',
+            ]);
+        }
+        
         $member = Member::create([
             'fullname' => $request->fullname,
             'email' => $request->email,
@@ -37,6 +44,10 @@ class MemberController extends Controller
 
         if ($request->hasFile('cv')) {
             $member->cv()->create(['path' => $request->file('cv')->store('cvs', 'public')]);
+        }
+
+        if ($request->hasFile('image')) {
+            $member->image()->create(['path' => $request->file('image')->store('member_images', 'public')]);
         }
 
         return  $member;

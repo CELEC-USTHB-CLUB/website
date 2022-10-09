@@ -13,8 +13,10 @@ class CreateMemberTest extends TestCase
 
     public function testCreatingMember()
     {
-        Storage::fake('avatars');
-        $file = UploadedFile::fake()->create('cv.pdf', 100);
+        Storage::fake('cvs');
+        Storage::fake('member_images');
+        $file1 = UploadedFile::fake()->create('cv.pdf', 100);
+        $file2 = UploadedFile::fake()->image('image.png', 100);
         $response = $this->post('/api/member/create', [
             'fullname' => 'test test',
             'email' => 'test@test.com',
@@ -30,7 +32,8 @@ class CreateMemberTest extends TestCase
             'other_clubs_experience' => 'x',
             'linked_in' => 'x',
             'motivation' => 'x',
-            'cv' => $file,
+            'cv' => $file1,
+            'image' => $file2
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseCount('members', 1);
