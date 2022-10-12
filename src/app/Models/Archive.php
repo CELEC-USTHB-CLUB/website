@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberImage extends Model
+class Archive extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['member_id', 'path'];
+    protected $fillable = ['training_id', 'path'];
+
 }

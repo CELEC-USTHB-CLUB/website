@@ -10,5 +10,4 @@ class Signature extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'invitation_id', 'paper_code', 'checkin_code', 'checkout_code'];
-
 }

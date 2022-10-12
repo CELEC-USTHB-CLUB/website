@@ -2,16 +2,16 @@
 
 namespace App\Imports;
 
+use App\Models\Invitation;
+use App\Models\Signature;
 use App\Training;
 use Carbon\Carbon;
-use ZanySoft\Zip\Zip;
-use setasign\Fpdi\Fpdi;
-use App\Models\Signature;
-use App\Models\Invitation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Picqer\Barcode\BarcodeGeneratorJPG;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Picqer\Barcode\BarcodeGeneratorJPG;
+use setasign\Fpdi\Fpdi;
+use ZanySoft\Zip\Zip;
 
 class UsersImport implements ToCollection
 {
@@ -27,10 +27,8 @@ class UsersImport implements ToCollection
     {
         $invitationTemplate = storage_path('app/A4 - 1INVITATION.pdf');
 
-
-
-        $folder = $this->training->title . '-invitations-' . Carbon::now()->format('Y-m-d H:i:s');
-        mkdir(storage_path() . '/app/invitations-papers/' . $folder);
+        $folder = $this->training->title.'-invitations-'.Carbon::now()->format('Y-m-d H:i:s');
+        mkdir(storage_path().'/app/invitations-papers/'.$folder);
         foreach ($rows as $key => $row) {
             if ($key > 0) {
                 $fpdi = new Fpdi;
@@ -57,23 +55,24 @@ class UsersImport implements ToCollection
                         ->addCheckInBarCode($fpdi, $checkincode)
                         ->addCheckOutBarCode($fpdi, $checkoutcode);
                 }
-                $filepath       =   'invitations-papers/' . $folder . '/' . $row[2] .'-'. $this->training->title . '-' . Carbon::now()->format('Y-m-d H:i:s') . '.pdf';
-                $invitation     =   Invitation::create(['training_id' => $this->training->id, 'path' => $filepath, 'user_id' => $row[0]]);
+                $filepath = 'invitations-papers/'.$folder.'/'.$row[2].'-'.$this->training->title.'-'.Carbon::now()->format('Y-m-d H:i:s').'.pdf';
+                $invitation = Invitation::create(['training_id' => $this->training->id, 'path' => $filepath, 'user_id' => $row[0]]);
 
                 Signature::create([
                     'user_id' => $row[0],
                     'invitation_id' => $invitation->id,
                     'paper_code' => $paperCode,
                     'checkin_code' => $checkincode,
-                    'checkout_code' => $checkoutcode
+                    'checkout_code' => $checkoutcode,
                 ]);
 
-                $fpdi->Output(storage_path('app/' . $filepath), 'F');
+                $fpdi->Output(storage_path('app/'.$filepath), 'F');
             }
         }
-        $zip = Zip::create(storage_path().'/app/invitations-papers/'.$folder.'.zip');
+        $zip = Zip::create(storage_path().'/app/public/archive-invitations-papers/'.$folder.'.zip');
         $zip->add(storage_path().'/app/invitations-papers/'.$folder.'/');
         $zip->close();
+        $this->training->archive()->create(['path' => 'archive-invitations-papers/'.$folder.'.zip']);
     }
 
     public function writeInscriptionDate(Fpdi $fpdi, string $text): UsersImport
@@ -143,8 +142,8 @@ class UsersImport implements ToCollection
     {
         $generator = new BarcodeGeneratorJPG();
         $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('papersBarCodes/' . $uuid . '.jpg', $barcode);
-        $fpdi->Image(storage_path('app/papersBarCodes/' . $uuid . '.jpg'), 10, 5, 80, 20, 'JPG');
+        Storage::put('papersBarCodes/'.$uuid.'.jpg', $barcode);
+        $fpdi->Image(storage_path('app/papersBarCodes/'.$uuid.'.jpg'), 10, 5, 80, 20, 'JPG');
 
         return $this;
     }
@@ -153,8 +152,8 @@ class UsersImport implements ToCollection
     {
         $generator = new BarcodeGeneratorJPG();
         $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('checkInsBarCodes/' . $uuid . '.jpg', $barcode);
-        $fpdi->Image(storage_path('app/checkInsBarCodes/' . $uuid . '.jpg'), 22, 260, 80, 20, 'JPG');
+        Storage::put('checkInsBarCodes/'.$uuid.'.jpg', $barcode);
+        $fpdi->Image(storage_path('app/checkInsBarCodes/'.$uuid.'.jpg'), 22, 260, 80, 20, 'JPG');
 
         return $this;
     }
@@ -163,14 +162,14 @@ class UsersImport implements ToCollection
     {
         $generator = new BarcodeGeneratorJPG();
         $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('checkOutsBarCodes/' . $uuid . '.jpg', $barcode);
-        $fpdi->Image(storage_path('app/checkOutsBarCodes/' . $uuid . '.jpg'), 120, 260, 80, 20, 'JPG');
+        Storage::put('checkOutsBarCodes/'.$uuid.'.jpg', $barcode);
+        $fpdi->Image(storage_path('app/checkOutsBarCodes/'.$uuid.'.jpg'), 120, 260, 80, 20, 'JPG');
 
         return $this;
     }
 
     public function generateID(): string
     {
-        return 'CELEC-' . substr(uniqid(), -10);
+        return 'CELEC-'.substr(uniqid(), -10);
     }
 }

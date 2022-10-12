@@ -23,7 +23,7 @@ class TrainingFactory extends Factory
             'tags' => ['php', 'javascript', 'laravel'],
             'closing_inscription_at' => Carbon::now(),
             'location' => 'xxx',
-            
+
         ];
     }
 }

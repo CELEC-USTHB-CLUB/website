@@ -33,7 +33,7 @@ class CreateMemberTest extends TestCase
             'linked_in' => 'x',
             'motivation' => 'x',
             'cv' => $file1,
-            'image' => $file2
+            'image' => $file2,
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseCount('members', 1);

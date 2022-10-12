@@ -47,5 +47,4 @@ class Member extends Model
     {
         return $this->hasOne(MemberImage::class);
     }
-
 }

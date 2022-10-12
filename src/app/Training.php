@@ -2,13 +2,14 @@
 
 namespace App;
 
-use App\Models\Invitation;
-use App\Models\TrainingImage;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Archive;
+use App\Models\Invitation;
 use Illuminate\Support\Str;
+use App\Models\TrainingImage;
 use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Training extends Model
 {
@@ -48,10 +49,14 @@ class Training extends Model
         return $this->hasMany(TrainingRegistration::class);
     }
 
-
-    public function invitations(): void
+    public function invitations()
     {
-        $this->hasMany(Invitation::class);
+        return $this->hasMany(Invitation::class);
+    }
+
+    public function archive()
+    {
+        return $this->hasOne(Archive::class);
     }
 
 }
