@@ -25,7 +25,6 @@ class MemberController extends Controller
                 'image' => 'mimetypes:image/jpeg,image/jpg,image/png|max:1042',
             ]);
         }
-
         $member = Member::create([
             'fullname' => $request->fullname,
             'email' => $request->email,

@@ -9,5 +9,5 @@ class Invitation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['path', 'training_id', 'user_id'];
+    protected $fillable = ['path', 'training_id', 'member_id'];
 }

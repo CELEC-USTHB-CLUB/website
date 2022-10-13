@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exports\MemberExport;
+use App\Models\Check;
 use App\Models\MemberImage;
 use App\Traits\RelationshipsTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,10 +34,10 @@ class Member extends Model
         'motivation',
     ];
 
-    public function getSkillsAttribute($value)
-    {
-        return json_decode($value);
-    }
+    // public function getSkillsAttribute($value)
+    // {
+    //     return json_decode($value);
+    // }
 
     public function cv()
     {
@@ -47,4 +48,10 @@ class Member extends Model
     {
         return $this->hasOne(MemberImage::class);
     }
+
+    public function checks()
+    {
+        return $this->hasMany(Check::class);
+    }
+
 }

@@ -56,10 +56,10 @@ class UsersImport implements ToCollection
                         ->addCheckOutBarCode($fpdi, $checkoutcode);
                 }
                 $filepath = 'invitations-papers/'.$folder.'/'.$row[2].'-'.$this->training->title.'-'.Carbon::now()->format('Y-m-d H:i:s').'.pdf';
-                $invitation = Invitation::create(['training_id' => $this->training->id, 'path' => $filepath, 'user_id' => $row[0]]);
+                $invitation = Invitation::create(['training_id' => $this->training->id, 'path' => $filepath, 'member_id' => $row[0]]);
 
                 Signature::create([
-                    'user_id' => $row[0],
+                    'member_id' => $row[0],
                     'invitation_id' => $invitation->id,
                     'paper_code' => $paperCode,
                     'checkin_code' => $checkincode,
