@@ -20,11 +20,6 @@ class MemberController extends Controller
             ]);
         }
 
-        if ($request->hasFile('image')) {
-            $request->validate([
-                'image' => 'mimetypes:image/jpeg,image/jpg,image/png|max:1042',
-            ]);
-        }
         $member = Member::create([
             'fullname' => $request->fullname,
             'email' => $request->email,
