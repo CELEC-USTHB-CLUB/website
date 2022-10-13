@@ -41,7 +41,7 @@ class MemberExport extends AbstractExport implements FromCollection
             $arr = [];
             foreach ($fields as $val) {
                 if ($val === 'cv') {
-                    $arr[$val] = url('storage').'/'.$res->cv->path;
+                    $arr[$val] = url('storage').'/'.$res->cv?->path;
                 } else {
                     $arr[$val] = $res[$val];
                 }
