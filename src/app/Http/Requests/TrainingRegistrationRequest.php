@@ -25,9 +25,9 @@ class TrainingRegistrationRequest extends FormRequest
     {
         return [
             'fullname' => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:training_registrations,email',
             'registration_number' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:training_registrations,phone',
             'is_celec_memeber' => 'required',
             'study_level' => 'required',
             'study_field' => 'required',
