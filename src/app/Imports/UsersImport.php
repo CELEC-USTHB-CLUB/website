@@ -28,6 +28,9 @@ class UsersImport implements ToCollection
         $invitationTemplate = storage_path('app/A4 - 1INVITATION.pdf');
 
         $folder = $this->training->title.'-invitations-'.Carbon::now()->format('Y-m-d H:i:s');
+        if (! is_dir(storage_path().'/app/invitations-papers/')) {
+            mkdir(storage_path().'/app/invitations-papers/');
+        }
         mkdir(storage_path().'/app/invitations-papers/'.$folder);
         foreach ($rows as $key => $row) {
             if ($key > 0) {
@@ -68,6 +71,9 @@ class UsersImport implements ToCollection
 
                 $fpdi->Output(storage_path('app/'.$filepath), 'F');
             }
+        }
+        if (! is_dir(storage_path().'/app/public/archive-invitations-papers/')) {
+            mkdir(storage_path().'/app/public/archive-invitations-papers/');
         }
         $zip = Zip::create(storage_path().'/app/public/archive-invitations-papers/'.$folder.'.zip');
         $zip->add(storage_path().'/app/invitations-papers/'.$folder.'/');

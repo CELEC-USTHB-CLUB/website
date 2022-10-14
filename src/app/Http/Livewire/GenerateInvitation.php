@@ -28,7 +28,7 @@ class GenerateInvitation extends Component
     {
         $this->training_id = $id;
         $training = Training::findOrFail($this->training_id);
-        $this->invitationsZipPath = $training->archive()->latest()->get()->first()->path;
+        $this->invitationsZipPath = $training->archive()->latest()->get()->first()?->path;
     }
 
     public function render()

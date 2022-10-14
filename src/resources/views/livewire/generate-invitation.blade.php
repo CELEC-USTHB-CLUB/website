@@ -11,9 +11,11 @@
             @endif
         </div>
     @else
-        <div style="margin-top: 1%; margin-left: 2%; color: black; border-left: 3px solid #f3f3f3; padding: 1%; font-weight: bolder;">
-            <a href="{{ url('storage/'.$invitationsZipPath) }}"><h5>Download {{$invitationsZipPath}}</h5></a>
-        </div>
+        @if($invitationsZipPath)
+            <div style="margin-top: 1%; margin-left: 2%; color: black; border-left: 3px solid #f3f3f3; padding: 1%; font-weight: bolder;">
+                <a href="{{ url('storage/'.$invitationsZipPath) }}"><h5>Download {{$invitationsZipPath}}</h5></a>
+            </div>
+        @endif
     @endif
     <form method="POST" action="{{ url('admin/trainings/invitations') }}" enctype="multipart/form-data" wire:submit.prevent="submit">
         @csrf
