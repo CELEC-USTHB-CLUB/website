@@ -92,11 +92,16 @@
                     @if(empty($selected_values))
                         <p>{{ __('voyager::generic.no_results') }}</p>
                     @else
-                        <ul>
-                            @foreach($selected_values as $selected_value)
-                                <li>{{ $selected_value }}</li>
-                            @endforeach
-                        </ul>
+                        @if($options->model === "App\\TrainingRegistration")
+                            <p>{{ count($selected_values) }}</p>
+                        @else
+                            <ul>
+                                @foreach($selected_values as $selected_value)
+                                    <li>{{ $selected_value }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        
                     @endif
                 @endif
 
