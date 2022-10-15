@@ -46,4 +46,5 @@ Route::GROUP(['prefix' => 'events'], function () {
 Route::GROUP(['prefix' => 'invitation'], function() {
     Route::POST('signature/paper/check', [PaperController::class, 'check']);
     Route::POST('signature/paper/checkin', [CheckController::class, 'checkin']);
+    Route::POST('signature/paper/checkout', [CheckController::class, 'checkout']);
 });

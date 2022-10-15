@@ -12,6 +12,10 @@ class PaperController extends Controller
         $request->validate([
             'signature' => 'required'
         ]);
-        return Signature::where('paper_code', $request->signature)->firstOrFail();
+        $signature = Signature::where('paper_code', $request->signature)->firstOrFail();
+        if ($signature->invitation->training_id !== (int)substr($request->signature, -1)) {
+            return abort(404);
+        }
+        return $signature;
     }
 }

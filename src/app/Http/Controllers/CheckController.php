@@ -15,6 +15,7 @@ class CheckController extends Controller
             'signature' => 'required'
         ]);
         $signature = Signature::where('checkin_code', $request->signature)->firstOrFail();
+
         if (! $signature->member()->exists()) {
             return abort(404);
         }
@@ -24,4 +25,23 @@ class CheckController extends Controller
             'checkedIn_at' => Carbon::now()
         ]);
     }
+
+    public function checkout(Request $request): Check
+    {
+        $request->validate([
+            'signature' => 'required'
+        ]);
+        $signature = Signature::where('checkout_code', $request->signature)->firstOrFail();
+
+        if (! $signature->member()->exists()) {
+            return abort(404);
+        }
+        $last_checkin = $signature->member->checks()->latest()->first();
+        if ($last_checkin === null) {
+            return abort(404);
+        }
+        $last_checkin->update(['checkedOut_at' => Carbon::now()]);
+        return $last_checkin;
+    }
+
 }

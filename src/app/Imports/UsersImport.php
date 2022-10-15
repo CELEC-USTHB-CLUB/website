@@ -7,6 +7,7 @@ use App\Models\Signature;
 use App\Training;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Picqer\Barcode\BarcodeGeneratorJPG;
@@ -60,11 +61,10 @@ class UsersImport implements ToCollection
                 }
                 $filepath = 'invitations-papers/'.$folder.'/'.$row[2].'-'.$this->training->title.'-'.Carbon::now()->format('Y-m-d H:i:s').'.pdf';
                 $invitation = Invitation::create(['training_id' => $this->training->id, 'path' => $filepath, 'member_id' => $row[0]]);
-
                 Signature::create([
                     'member_id' => $row[0],
                     'invitation_id' => $invitation->id,
-                    'paper_code' => $paperCode,
+                    'paper_code' => $paperCode.$invitation->training_id,
                     'checkin_code' => $checkincode,
                     'checkout_code' => $checkoutcode,
                 ]);
