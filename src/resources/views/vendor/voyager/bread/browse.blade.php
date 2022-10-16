@@ -1,5 +1,5 @@
 @extends('voyager::master')
-
+@livewireStyles
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->getTranslatedAttribute('display_name_plural'))
 
 @section('page_header')
@@ -30,6 +30,9 @@
         @foreach($actions as $action)
             @if (method_exists($action, 'massAction'))
                 @include('voyager::bread.partials.actions', ['action' => $action, 'data' => null])
+                @if($dataType->name === "members")
+                    @livewire('badge-generator')
+                @endif
             @endif
         @endforeach
         @include('voyager::multilingual.language-selector')
@@ -398,4 +401,5 @@
             $('.selected_ids').val(ids);
         });
     </script>
+    @livewireScripts
 @stop
