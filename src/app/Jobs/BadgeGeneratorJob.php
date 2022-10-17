@@ -15,6 +15,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Spatie\FlareClient\Http\Exceptions\BadResponse;
+use Throwable;
 
 class BadgeGeneratorJob implements ShouldQueue
 {
@@ -37,7 +38,6 @@ class BadgeGeneratorJob implements ShouldQueue
      */
     public function handle()
     {
-        ini_set("gd.jpeg_ignore_warning", 1);
         $templatePDF = storage_path('app/badge-template.pdf');
         $folder = 'badges-' . Carbon::now()->format('Y-m-d H:i:s');
         if (is_dir(storage_path() . '/app/badges/')) {
@@ -45,8 +45,19 @@ class BadgeGeneratorJob implements ShouldQueue
         }
         mkdir(storage_path() . '/app/badges/');
         mkdir(storage_path() . '/app/badges/' . $folder);
+        
         foreach ($this->members as $member) {
-            if ($member->image()->exists()) {
+            $imageCorrupted = false;
+            try {
+                getimagesize(storage_path('app/public/' . $member->image->path));
+            } catch (Throwable $e) {
+                $imageCorrupted = true;
+            }
+            if (
+                $member->image()->exists()
+                AND
+                ! $imageCorrupted
+            ) {
                 $fpdi = new Fpdi;
                 $fpdi->setSourceFile($templatePDF);
 
