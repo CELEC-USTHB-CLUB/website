@@ -37,6 +37,7 @@ class BadgeGeneratorJob implements ShouldQueue
      */
     public function handle()
     {
+        ini_set("gd.jpeg_ignore_warning", 1);
         $templatePDF = storage_path('app/badge-template.pdf');
         $folder = 'badges-' . Carbon::now()->format('Y-m-d H:i:s');
         if (is_dir(storage_path() . '/app/badges/')) {
