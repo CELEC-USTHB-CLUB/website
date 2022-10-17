@@ -7,7 +7,6 @@ use App\Models\Signature;
 use App\Training;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Picqer\Barcode\BarcodeGeneratorJPG;

@@ -13,7 +13,6 @@ class Check extends Model
 
     public $casts = [
         'checkedIn_at' => 'datetime:Y-m-d H:i:s',
-        'checkedOut_at' => 'datetime:Y-m-d H:i:s'
+        'checkedOut_at' => 'datetime:Y-m-d H:i:s',
     ];
-
 }

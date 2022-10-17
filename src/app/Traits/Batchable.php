@@ -2,15 +2,15 @@
 
 namespace App\Traits;
 
-use Throwable;
 use Illuminate\Bus\Batch;
-use Illuminate\Support\Facades\Bus;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Bus;
+use Throwable;
 
 trait Batchable
 {
-
     public $batchId;
+
     public $finished = false;
 
     public function getBatchProperty(): ?Batch
@@ -27,18 +27,19 @@ trait Batchable
             $this->finished = false;
         }
         $batch = Bus::batch([
-            $job
+            $job,
         ])->allowFailures()->catch(function (Batch $batch, Throwable $e) {
             dump($e->getMessage());
         })->dispatch();
 
         $this->batchId = $batch->id;
+
         return $batch;
     }
 
     public function checkStatus()
     {
-        $finished =  Bus::findBatch($this->batchId)->finished();
+        $finished = Bus::findBatch($this->batchId)->finished();
         if ($finished) {
             $this->batchFinished();
         }

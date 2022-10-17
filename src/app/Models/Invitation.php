@@ -16,5 +16,4 @@ class Invitation extends Model
     {
         return $this->belongsTo(Training::class);
     }
-
 }

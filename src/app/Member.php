@@ -53,5 +53,4 @@ class Member extends Model
     {
         return $this->hasMany(Check::class);
     }
-
 }

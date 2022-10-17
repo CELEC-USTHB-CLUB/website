@@ -65,7 +65,7 @@ class GenerateInvitation extends Component
 
     public function checkStatus()
     {
-        $finished =  Bus::findBatch($this->batchId)->finished();
+        $finished = Bus::findBatch($this->batchId)->finished();
         if ($finished) {
             $training = Training::findOrFail($this->training_id);
             $this->invitationsZipPath = $training->archive()->latest()->get()->first()->path;

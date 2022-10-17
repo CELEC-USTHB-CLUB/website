@@ -10,5 +10,4 @@ class Archive extends Model
     use HasFactory;
 
     protected $fillable = ['training_id', 'path'];
-
 }

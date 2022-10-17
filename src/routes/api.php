@@ -1,17 +1,15 @@
 <?php
 
-use App\Models\Signature;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PaperController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\CheckController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\PaperController;
-use App\Http\Controllers\MemberController;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\SignatureController;
+use Illuminate\Support\Facades\Route;
 
 Route::GROUP(['prefix' => 'member'], function () {
     Route::POST('create', [MemberController::class, 'create']);
@@ -43,7 +41,7 @@ Route::GROUP(['prefix' => 'events'], function () {
     Route::GET('all', [EventController::class, 'all']);
 });
 
-Route::GROUP(['prefix' => 'invitation'], function() {
+Route::GROUP(['prefix' => 'invitation'], function () {
     Route::POST('signature/paper/check', [PaperController::class, 'check']);
     Route::POST('signature/paper/checkin', [CheckController::class, 'checkin']);
     Route::POST('signature/paper/checkout', [CheckController::class, 'checkout']);

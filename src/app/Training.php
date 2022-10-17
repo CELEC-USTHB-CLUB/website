@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use App\Models\Archive;
 use App\Models\Invitation;
-use Illuminate\Support\Str;
 use App\Models\TrainingImage;
-use Laravel\Scout\Searchable;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 class Training extends Model
 {
@@ -58,5 +58,4 @@ class Training extends Model
     {
         return $this->hasOne(Archive::class);
     }
-
 }

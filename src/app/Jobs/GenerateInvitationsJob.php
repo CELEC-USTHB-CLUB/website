@@ -2,16 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Training;
 use App\Imports\UsersImport;
+use App\Training;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Events\TrainingAcceptedUsersImported;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GenerateInvitationsJob implements ShouldQueue
 {

@@ -32,7 +32,7 @@ class CreateMemberRequest extends FormRequest
             'study_level' => ['required'],
             'study_field' => ['required'],
             'motivation' => ['required'],
-            'image' => 'required|mimetypes:image/jpeg,image/jpg,image/png|max:5042'
+            'image' => 'required|mimetypes:image/jpeg,image/jpg,image/png|max:5042',
         ];
     }
 }

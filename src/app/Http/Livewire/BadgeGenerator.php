@@ -6,12 +6,13 @@ use App\Member;
 use Livewire\Component;
 use App\Traits\Batchable;
 use App\Jobs\BadgeGeneratorJob;
-use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Cache;
 
 class BadgeGenerator extends Component
 {
-
     use Batchable;
+
+    public $downloadLink;
 
     public function render()
     {
@@ -25,7 +26,7 @@ class BadgeGenerator extends Component
 
     public function batchFinished(): void
     {
-        // dump('batch end');
+        $this->downloadLink = Cache::get('download-badges-path');
+        Cache::forget('download-badges-path');
     }
-
 }
