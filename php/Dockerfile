@@ -30,4 +30,8 @@ RUN apt-get install libfreetype6-dev -y
 RUN apt-get install libjpeg-dev -y
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
+RUN apt-get update && apt-get install -y \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+	&& docker-php-ext-enable imagick
 RUN apt-get autoremove -y && rm -rf /var/lib/apt/lists/*

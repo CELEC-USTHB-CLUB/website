@@ -58,6 +58,16 @@ class BadgeGeneratorJob implements ShouldQueue
                 AND
                 ! $imageCorrupted
             ) {
+                
+                $extension = explode(".", storage_path('app/public/' . $member->image->path));
+                $extension = end($extension);
+                
+                if (strtolower($extension) === 'png') {
+                    if ($this->checkIfPngImageDepthIsGraterThan8bits(storage_path('app/public/' . $member->image->path))) {
+                        $this->convert16bitsImageDepthTo8bits(storage_path('app/public/' . $member->image->path));
+                    }
+                }
+
                 $fpdi = new Fpdi;
                 $fpdi->setSourceFile($templatePDF);
 
@@ -142,4 +152,19 @@ class BadgeGeneratorJob implements ShouldQueue
         $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
         $fpdi->useTemplate($template);
     }
+
+    public function checkIfPngImageDepthIsGraterThan8bits(string $path): bool
+    {
+        $info = unpack('A8sig/Nchunksize/A4chunktype/Nwidth/Nheight/Cbit-depth/Ccolor/Ccompression/Cfilter/Cinterface', file_get_contents($path,0,null,0,29));
+        return $info['bit-depth'] > 8;
+    }
+
+    public function convert16bitsImageDepthTo8bits(string $path): void
+    {
+        $image = new \Imagick($path);
+        $image->setImageDepth(8);
+        $image->writeImage($path);
+    }
+
+
 }
