@@ -9,6 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('admin/trainings/exportRegistrations/{training}', [TrainingRegistrationsController::class, 'export'])->middleware('auth');
+Route::post('admin/trainings/exportRegistrations/{training}', [TrainingRegistrationsController::class, 'export'])->middleware('auth');
 Route::post('admin/trainings/invitations', [InvitationsController::class, 'generate'])->middleware('auth');
 
 Route::group(['prefix' => 'admin'], function () {
