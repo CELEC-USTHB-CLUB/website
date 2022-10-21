@@ -200,7 +200,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                                @if(auth()->user()->role->name === "admin" OR auth()->user()->can('generate_invitations'))
+                                @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_invitations'))
                                     @livewire('generate-invitation', ['id' => $id])
                                 @endif
                             </div>

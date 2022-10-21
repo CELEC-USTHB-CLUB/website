@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TrainingRegistrationsExport implements FromCollection, WithHeadings
 {
-    public function __construct(public int $id, public string $filters)
+    public function __construct(public int $id, public ?string $filters)
     {
     }
 
