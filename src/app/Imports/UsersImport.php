@@ -120,7 +120,7 @@ class UsersImport implements ToCollection
     {
         $left = 75;
         $top = 177;
-        $fpdi->Text($left, $top, $text);
+        $fpdi->Text($left, $top, utf8_decode($text));
 
         return $this;
     }

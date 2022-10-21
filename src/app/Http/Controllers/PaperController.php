@@ -13,7 +13,7 @@ class PaperController extends Controller
             'signature' => 'required',
         ]);
         $signature = Signature::where('paper_code', $request->signature)->firstOrFail();
-        if ($signature->invitation->training_id !== (int) substr($request->signature, -1)) {
+        if ($signature->invitation->training_id !== (int) substr($request->signature, strlen($signature->invitation->training_id))) {
             return abort(404);
         }
 
