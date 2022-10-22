@@ -16,9 +16,9 @@ class CheckController extends Controller
         ]);
         $signature = Signature::where('checkin_code', $request->signature)->firstOrFail();
 
-        if (! $signature->member()->exists()) {
-            return abort(404);
-        }
+        // if (! $signature->member()->exists()) {
+        //     return abort(404);
+        // }
 
         return $signature->member->checks()->create([
             'invitation_id' => $signature->invitation_id,
