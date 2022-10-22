@@ -43,7 +43,7 @@ class UsersImport implements ToCollection
                     $size = $fpdi->getTemplateSize($template);
                     $fpdi->AddPage($size['orientation'], [$size['width'], $size['height']]);
                     $fpdi->useTemplate($template);
-                    $paperCode = $this->generateID().$this->training_id;
+                    $paperCode = $this->generateID().$this->training->id;
                     $checkincode = $this->generateID();
                     $checkoutcode = $this->generateID();
                     $this
