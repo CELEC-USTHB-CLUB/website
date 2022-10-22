@@ -20,10 +20,11 @@ class CheckController extends Controller
         //     return abort(404);
         // }
 
-        return $signature->member->checks()->create([
+        return Check::create([
             'invitation_id' => $signature->invitation_id,
             'training_id' => $signature->invitation->training_id,
             'checkedIn_at' => Carbon::now(),
+            'member_id' => $signature->member_id
         ]);
     }
 
@@ -34,10 +35,11 @@ class CheckController extends Controller
         ]);
         $signature = Signature::where('checkout_code', $request->signature)->firstOrFail();
 
-        if (! $signature->member()->exists()) {
-            return abort(404);
-        }
-        $last_checkin = $signature->member->checks()->latest()->first();
+        // if (! $signature->member()->exists()) {
+        //     return abort(404);
+        // }
+        // $last_checkin = $signature->member->checks()->latest()->first();
+        $last_checkin = Check::where('member_id', $signature->member_id)->latest()->first();
         if ($last_checkin === null) {
             return abort(404);
         }
