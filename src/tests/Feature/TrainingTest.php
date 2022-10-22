@@ -68,7 +68,9 @@ class TrainingTest extends TestCase
     public function testRegisterAsClubMember()
     {
         Storage::fake('avatars');
+        Storage::fake('member_images');
         $file = UploadedFile::fake()->create('cv.pdf', 100);
+        $file2 = UploadedFile::fake()->image('image.png', 100);
         $response = $this->post('/api/member/create', [
             'fullname' => 'test test',
             'email' => 'test@gmail.com',
@@ -85,6 +87,7 @@ class TrainingTest extends TestCase
             'linked_in' => 'x',
             'motivation' => 'x',
             'cv' => $file,
+            'image' => $file2
         ]);
         $trainings = Training::factory()->state(['closing_inscription_at' => Carbon::now()->addDay()])->hasImage(1)->count(10)->create();
         $response = $this->post('/api/trainings/'.$trainings->first()->slug.'/register', [

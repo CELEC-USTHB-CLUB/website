@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Member;
-use Livewire\Component;
-use App\Traits\Batchable;
 use App\Jobs\BadgeGeneratorJob;
+use App\Member;
+use App\Traits\Batchable;
 use Illuminate\Support\Facades\Cache;
+use Livewire\Component;
 
 class BadgeGenerator extends Component
 {

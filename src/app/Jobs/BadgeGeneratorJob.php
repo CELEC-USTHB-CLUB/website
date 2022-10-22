@@ -3,19 +3,17 @@
 namespace App\Jobs;
 
 use Carbon\Carbon;
-use ZanySoft\Zip\Zip;
-use setasign\Fpdi\Fpdi;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Spatie\FlareClient\Http\Exceptions\BadResponse;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use setasign\Fpdi\Fpdi;
 use Throwable;
+use ZanySoft\Zip\Zip;
 
 class BadgeGeneratorJob implements ShouldQueue
 {
@@ -39,32 +37,31 @@ class BadgeGeneratorJob implements ShouldQueue
     public function handle()
     {
         $templatePDF = storage_path('app/badge-template.pdf');
-        $folder = 'badges-' . Carbon::now()->format('Y-m-d H:i:s');
-        if (is_dir(storage_path() . '/app/badges/')) {
-            system('rm -rf '.storage_path() . '/app/badges/');
+        $folder = 'badges-'.Carbon::now()->format('Y-m-d H:i:s');
+        if (is_dir(storage_path().'/app/badges/')) {
+            system('rm -rf '.storage_path().'/app/badges/');
         }
-        mkdir(storage_path() . '/app/badges/');
-        mkdir(storage_path() . '/app/badges/' . $folder);
-        
+        mkdir(storage_path().'/app/badges/');
+        mkdir(storage_path().'/app/badges/'.$folder);
+
         foreach ($this->members as $member) {
             $imageCorrupted = false;
             try {
-                getimagesize(storage_path('app/public/' . $member->image->path));
+                getimagesize(storage_path('app/public/'.$member->image->path));
             } catch (Throwable $e) {
                 $imageCorrupted = true;
             }
             if (
                 $member->image()->exists()
-                AND
+                and
                 ! $imageCorrupted
             ) {
-                
-                $extension = explode(".", storage_path('app/public/' . $member->image->path));
+                $extension = explode('.', storage_path('app/public/'.$member->image->path));
                 $extension = end($extension);
-                
+
                 if (strtolower($extension) === 'png') {
-                    if ($this->checkIfPngImageDepthIsGraterThan8bits(storage_path('app/public/' . $member->image->path))) {
-                        $this->convert16bitsImageDepthTo8bits(storage_path('app/public/' . $member->image->path));
+                    if ($this->checkIfPngImageDepthIsGraterThan8bits(storage_path('app/public/'.$member->image->path))) {
+                        $this->convert16bitsImageDepthTo8bits(storage_path('app/public/'.$member->image->path));
                     }
                 }
 
@@ -83,8 +80,8 @@ class BadgeGeneratorJob implements ShouldQueue
                     ->addUserImage($fpdi, $member->image->path)
                     ->addStudyYear($fpdi)
                     ->importSecondPage($fpdi);
-                
-                $fpdi->Output(storage_path('app/badges') ."/$folder/". $member->fullname.'.pdf', 'F');
+
+                $fpdi->Output(storage_path('app/badges')."/$folder/".$member->fullname.'.pdf', 'F');
             }
         }
 
@@ -111,6 +108,7 @@ class BadgeGeneratorJob implements ShouldQueue
             $top = 20;
             $fpdi->Text($left, $top, $fullname);
         }
+
         return $this;
     }
 
@@ -120,15 +118,16 @@ class BadgeGeneratorJob implements ShouldQueue
         $left = 37;
         $top = 33;
         $fpdi->Text($left, $top, $registration_number);
+
         return $this;
     }
 
     public function addUserImage(Fpdi $fpdi, string $imagepath): BadgeGeneratorJob
     {
-        $extension = explode(".", $imagepath);
+        $extension = explode('.', $imagepath);
         $extension = end($extension);
         if (in_array($extension, ['jpeg', 'jpg', 'png'])) {
-            $fpdi->Image(storage_path('app/public/' . $imagepath), 6.5, 16.5, 25.3, 28, strtoupper($extension));
+            $fpdi->Image(storage_path('app/public/'.$imagepath), 6.5, 16.5, 25.3, 28, strtoupper($extension));
         }
 
         return $this;
@@ -136,7 +135,7 @@ class BadgeGeneratorJob implements ShouldQueue
 
     public function addStudyYear(Fpdi $fpdi): BadgeGeneratorJob
     {
-        $studyYear = Carbon::now()->year . "/" . Carbon::now()->addYear()->year;
+        $studyYear = Carbon::now()->year.'/'.Carbon::now()->addYear()->year;
         $fpdi->SetFont('Times', null, 10);
         $left = 37;
         $top = 45;
@@ -155,7 +154,8 @@ class BadgeGeneratorJob implements ShouldQueue
 
     public function checkIfPngImageDepthIsGraterThan8bits(string $path): bool
     {
-        $info = unpack('A8sig/Nchunksize/A4chunktype/Nwidth/Nheight/Cbit-depth/Ccolor/Ccompression/Cfilter/Cinterface', file_get_contents($path,0,null,0,29));
+        $info = unpack('A8sig/Nchunksize/A4chunktype/Nwidth/Nheight/Cbit-depth/Ccolor/Ccompression/Cfilter/Cinterface', file_get_contents($path, 0, null, 0, 29));
+
         return $info['bit-depth'] > 8;
     }
 
@@ -165,6 +165,4 @@ class BadgeGeneratorJob implements ShouldQueue
         $image->setImageDepth(8);
         $image->writeImage($path);
     }
-
-
 }

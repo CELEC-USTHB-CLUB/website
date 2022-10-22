@@ -12,7 +12,7 @@ class TrainingRegistration extends Model
     protected $fillable = ['training_id', 'fullname', 'email', 'registration_number', 'phone', 'is_celec_memeber', 'study_level', 'study_field', 'course_goals'];
 
     public $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s'
+        'created_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function course()

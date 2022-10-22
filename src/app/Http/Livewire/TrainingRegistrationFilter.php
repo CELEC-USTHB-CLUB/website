@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class TrainingRegistrationFilter extends Component
 {
-
     public $training;
+
     public $filters;
 
     public function mount(int $trainingId)
@@ -25,5 +25,4 @@ class TrainingRegistrationFilter extends Component
     {
         dump($this->filters);
     }
-
 }

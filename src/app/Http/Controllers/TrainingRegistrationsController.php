@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TrainingRegistrationsExport;
 use App\Training;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\TrainingRegistrationsExport;
 
 class TrainingRegistrationsController extends Controller
 {
@@ -15,6 +15,7 @@ class TrainingRegistrationsController extends Controller
         if ($request->has('filters')) {
             $filters = $request->filters;
         }
+
         return Excel::download(new TrainingRegistrationsExport($training->id, $filters), $training->slug.'-registrations.xlsx');
     }
 }

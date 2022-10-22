@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Training;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
 
 class TrainingRegistrationRequest extends FormRequest
 {
@@ -28,9 +27,9 @@ class TrainingRegistrationRequest extends FormRequest
     {
         return [
             'fullname' => 'required',
-            'email' => ['required' , Rule::unique('training_registrations')->where(fn ($query) => $query->where('training_registrations.training_id', $this->route('training')->id))],
+            'email' => ['required', Rule::unique('training_registrations')->where(fn ($query) => $query->where('training_registrations.training_id', $this->route('training')->id))],
             'registration_number' => 'required',
-            'phone' => ['required' , Rule::unique('training_registrations')->where(fn ($query) => $query->where('training_registrations.training_id', $this->route('training')->id))],
+            'phone' => ['required', Rule::unique('training_registrations')->where(fn ($query) => $query->where('training_registrations.training_id', $this->route('training')->id))],
             'is_celec_memeber' => 'required',
             'study_level' => 'required',
             'study_field' => 'required',
