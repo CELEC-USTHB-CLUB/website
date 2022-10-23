@@ -63,7 +63,7 @@ class UsersImport implements ToCollection
                 Signature::create([
                     'member_id' => $row[0],
                     'invitation_id' => $invitation->id,
-                    'paper_code' => $paperCode.$invitation->training_id,
+                    'paper_code' => $paperCode,
                     'checkin_code' => $checkincode,
                     'checkout_code' => $checkoutcode,
                 ]);
