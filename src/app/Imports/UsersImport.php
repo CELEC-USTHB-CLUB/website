@@ -74,7 +74,8 @@ class UsersImport implements ToCollection
         if (! is_dir(storage_path().'/app/public/archive-invitations-papers/')) {
             mkdir(storage_path().'/app/public/archive-invitations-papers/');
         }
-        $zip = Zip::create(storage_path().'/app/public/archive-invitations-papers/'.$folder.'.zip');
+        $zip = new Zip;
+        $zip->create(storage_path().'/app/public/archive-invitations-papers/'.$folder.'.zip');
         $zip->add(storage_path().'/app/invitations-papers/'.$folder.'/');
         $zip->close();
         $this->training->archive()->create(['path' => 'archive-invitations-papers/'.$folder.'.zip']);
