@@ -14,7 +14,7 @@ class TrainingController extends Controller
     public function all(Request $request)
     {
         if ($request->has('filter') and count($request->filter) > 0) {
-            return TrainingResource::collection(Training::with('image')->whereJsonContains('tags', $request->filter)->paginate(12));
+            return TrainingResource::collection(Training::with('image')->whereJsonContains('tags', $request->filter)->orderById('desc')->paginate(12));
         }
 
         return TrainingResource::collection(Training::with('image')->paginate(12));
