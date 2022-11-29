@@ -137,7 +137,7 @@ return [
     */
 
     'providers' => [
-
+        ZanySoft\Zip\ZipServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
