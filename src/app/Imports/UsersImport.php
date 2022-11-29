@@ -2,16 +2,17 @@
 
 namespace App\Imports;
 
-use App\Models\Invitation;
-use App\Models\Signature;
 use App\Training;
 use Carbon\Carbon;
+use ZanySoft\Zip\Zip;
+use setasign\Fpdi\Fpdi;
+use App\Models\Signature;
+use App\Models\Invitation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Picqer\Barcode\BarcodeGeneratorJPG;
-use setasign\Fpdi\Fpdi;
-use ZanySoft\Zip\Zip;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
 class UsersImport implements ToCollection
 {
@@ -146,30 +147,33 @@ class UsersImport implements ToCollection
 
     public function addPaperBarCode(Fpdi $fpdi, string $uuid): UsersImport
     {
-        $generator = new BarcodeGeneratorJPG();
-        $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('papersBarCodes/'.$uuid.'.jpg', $barcode);
-        $fpdi->Image(storage_path('app/papersBarCodes/'.$uuid.'.jpg'), 10, 5, 80, 20, 'JPG');
+        // $generator = new BarcodeGeneratorJPG();
+        // $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
+        $barcode = QrCode::format('png')->size(100)->backgroundColor(243, 246, 249)->generate($uuid);
+        Storage::put('papersBarCodes/'.$uuid.'.png', $barcode);
+        $fpdi->Image(storage_path('app/papersBarCodes/'.$uuid.'.png'), 10, 5, 50, 50, 'PNG');
 
         return $this;
     }
 
     public function addCheckInBarCode(Fpdi $fpdi, string $uuid): UsersImport
     {
-        $generator = new BarcodeGeneratorJPG();
-        $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('checkInsBarCodes/'.$uuid.'.jpg', $barcode);
-        $fpdi->Image(storage_path('app/checkInsBarCodes/'.$uuid.'.jpg'), 22, 260, 80, 20, 'JPG');
+        // $generator = new BarcodeGeneratorJPG();
+        // $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
+        $barcode = QrCode::format('png')->size(100)->backgroundColor(243, 246, 249)->generate($uuid);
+        Storage::put('checkInsBarCodes/'.$uuid.'.png', $barcode);
+        $fpdi->Image(storage_path('app/checkInsBarCodes/'.$uuid.'.png'), 22, 230, 50, 50, 'PNG');
 
         return $this;
     }
 
     public function addCheckOutBarCode(Fpdi $fpdi, string $uuid): UsersImport
     {
-        $generator = new BarcodeGeneratorJPG();
-        $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        Storage::put('checkOutsBarCodes/'.$uuid.'.jpg', $barcode);
-        $fpdi->Image(storage_path('app/checkOutsBarCodes/'.$uuid.'.jpg'), 120, 260, 80, 20, 'JPG');
+        // $generator = new BarcodeGeneratorJPG();
+        // $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
+        $barcode = QrCode::format('png')->size(100)->backgroundColor(243, 246, 249)->generate($uuid);
+        Storage::put('checkOutsBarCodes/'.$uuid.'.png', $barcode);
+        $fpdi->Image(storage_path('app/checkOutsBarCodes/'.$uuid.'.png'), 140, 230, 50, 50, 'PNG');
 
         return $this;
     }

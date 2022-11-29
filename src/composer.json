@@ -21,6 +21,7 @@
         "psr/simple-cache": "^2.0",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.3",
+        "simplesoftwareio/simple-qrcode": "~4",
         "tcg/voyager": "^1.5",
         "tu6ge/voyager-excel": "^2.2",
         "zanysoft/laravel-zip": "^2.0"
