@@ -18,7 +18,7 @@ class Tag extends JsonResource
         return [
             "id" => $this->id,
             'name' => $this->name,
-            'hex_color' => Str::replace('#', "0x", $this->hex_color)
+            'hex_color' => Str::replace('#', "", $this->hex_color)
         ];
     }
 }
