@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TagCollection extends ResourceCollection
@@ -14,6 +15,10 @@ class TagCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'hexcolor' => Str::replace("#", "0x", $this->hexcolor)
+        ];
     }
 }
