@@ -26,6 +26,13 @@ class Training extends Model
         'ending_at' => 'datetime: Y-m-d',
     ];
 
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        $array['cover'] = $this->image->path;
+        return $array;
+    }
+    
     protected static function boot()
     {
         parent::boot();
