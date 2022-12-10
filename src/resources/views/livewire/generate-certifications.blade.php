@@ -22,6 +22,9 @@
             </div>
         @endif
     @endif
+    <div wire:loading wire:target="certification">
+        <h4>Uploading template, please wait <img style='width: 50px' src='{{ url("storage/loading.gif") }}'></h4>
+    </div>
     <h3 class="panel-title">Generate certifications: </h3> 
     <form method="POST" accept="#" enctype="multipart/form-data" wire:submit.prevent="submit">
         <h4 class="panel-title">Import users list (excel file) Column 1:A To N:A must contains only full name</h4>
