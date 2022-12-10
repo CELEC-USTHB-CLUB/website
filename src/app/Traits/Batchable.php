@@ -13,6 +13,8 @@ trait Batchable
 
     public $finished = false;
 
+    public $error = false;
+
     public function getBatchProperty(): ?Batch
     {
         return ($this->batchId) ? Bus::findBatch($this->batchId) : null;
@@ -39,10 +41,16 @@ trait Batchable
 
     public function checkStatus()
     {
-        $finished = Bus::findBatch($this->batchId)->finished();
-        if ($finished) {
-            $this->batchFinished();
+        $bus = Bus::findBatch($this->batchId);
+        if ($bus->failedJobs > 0) {
+            $this->finished = true;
+            $this->error = true;
+        }else {
+            if ($bus->finished()) {
+                $this->batchFinished($bus);
+            }
+            $this->finished = $bus->finished();
         }
-        $this->finished = $finished;
+        
     }
 }

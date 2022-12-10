@@ -2,17 +2,17 @@
 
 namespace App\Imports;
 
+use App\Models\Invitation;
+use App\Models\Signature;
 use App\Training;
 use Carbon\Carbon;
-use ZanySoft\Zip\Zip;
-use setasign\Fpdi\Fpdi;
-use App\Models\Signature;
-use App\Models\Invitation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Picqer\Barcode\BarcodeGeneratorJPG;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Picqer\Barcode\BarcodeGeneratorJPG;
+use setasign\Fpdi\Fpdi;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use ZanySoft\Zip\Zip;
 
 class UsersImport implements ToCollection
 {

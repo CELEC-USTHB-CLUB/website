@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class Tag extends JsonResource
 {
@@ -16,9 +16,9 @@ class Tag extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
+            'id' => $this->id,
             'name' => $this->name,
-            'hex_color' => Str::replace('#', "", $this->hex_color)
+            'hex_color' => Str::replace('#', '', $this->hex_color),
         ];
     }
 }

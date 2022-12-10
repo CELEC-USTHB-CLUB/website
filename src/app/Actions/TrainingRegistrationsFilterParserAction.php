@@ -2,14 +2,15 @@
 
 namespace App\Actions;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class TrainingRegistrationsFilterParserAction
 {
-
     const PARSER_SEPARATOR = '/';
+
     const FILTER_OPERATIONS = ['asc', 'desc', '=', '<', '>', '<=', '>='];
+
     const OPERATION_SQL = [
         'asc' => 'orderBy',
         'desc' => 'orderBy',
@@ -21,11 +22,10 @@ class TrainingRegistrationsFilterParserAction
     ];
 
     public function __construct(
-        private string $text, 
+        private string $text,
         private Model $model,
         private Builder $builder
-        )
-    {
+        ) {
     }
 
     public function parse()
@@ -33,13 +33,14 @@ class TrainingRegistrationsFilterParserAction
         $lines = explode(self::PARSER_SEPARATOR, $this->text);
         $modelFillables = $this->model->getFillable();
         array_push($modelFillables, 'created_at');
-        foreach($lines as $filterLine) {
+        foreach ($lines as $filterLine) {
             $line = $this->readLine($filterLine);
             if (count($line) === 0) {
                 return false;
             }
             $this->parseLine($line, $this->builder);
         }
+
         return $this->builder;
     }
 
@@ -48,7 +49,7 @@ class TrainingRegistrationsFilterParserAction
         $filterKeyValue = [];
         $operationMethod = null;
         $operationValue = null;
-        foreach(self::FILTER_OPERATIONS as $operation) {
+        foreach (self::FILTER_OPERATIONS as $operation) {
             if (str_contains($line, $operation)) {
                 $filterKeyValue = explode($operation, $line);
                 $operationMethod = self::OPERATION_SQL[$operation];
@@ -64,9 +65,10 @@ class TrainingRegistrationsFilterParserAction
         if ($columnName === 'is_celec_member') {
             $columnName = 'is_celec_memeber';
         }
+
         return ['columnName' => $columnName, 'value' => $filterValue, 'operationMethod' => $operationMethod, 'operationValue' => $operationValue];
     }
-    
+
     public function getColumnName(string $filterName): string
     {
         return str_replace(' ', '_', strtolower($filterName));
@@ -77,13 +79,12 @@ class TrainingRegistrationsFilterParserAction
         if (count($filter) !== 4) {
             return $this->builder;
         }
-        if ($filter['operationMethod'] === null OR $filter['operationValue'] === null) {
+        if ($filter['operationMethod'] === null or $filter['operationValue'] === null) {
             return $this->builder;
         }
 
-        return ($filter['operationMethod'] === "where") 
+        return ($filter['operationMethod'] === 'where')
             ? $this->builder->where($filter['columnName'], $filter['operationValue'], $filter['value'])
             : $this->builder->orderBy($filter['columnName'], $filter['operationValue']);
     }
-
 }

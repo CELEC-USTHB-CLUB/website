@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Models\Archive;
+use App\Models\Certification;
+use App\Models\CertificationZip;
 use App\Models\Invitation;
 use App\Models\TrainingImage;
 use Carbon\Carbon;
@@ -29,10 +31,11 @@ class Training extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-        $array['cover'] = $this->image->path;
+        $array['cover'] = $this->image?->path;
+
         return $array;
     }
-    
+
     protected static function boot()
     {
         parent::boot();
@@ -63,6 +66,17 @@ class Training extends Model
 
     public function archive()
     {
-        return $this->hasOne(Archive::class);
+        return $this->hasMany(Archive::class);
     }
+
+    public function certifications()
+    {
+        return $this->hasMany(Certification::class);
+    }
+
+    public function certificationZip()
+    {
+        return $this->hasMany(CertificationZip::class);
+    }
+
 }

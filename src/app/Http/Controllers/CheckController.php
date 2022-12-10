@@ -24,7 +24,7 @@ class CheckController extends Controller
             'invitation_id' => $signature->invitation_id,
             'training_id' => $signature->invitation->training_id,
             'checkedIn_at' => Carbon::now(),
-            'member_id' => $signature->member_id
+            'member_id' => $signature->member_id,
         ]);
     }
 

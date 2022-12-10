@@ -1,12 +1,11 @@
-<?php 
+<?php
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\TrainingRegistration;
-use Database\Factories\TrainingRegistrationFactory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Actions\TrainingRegistrationsFilterParserAction;
+use App\TrainingRegistration;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class TrainingRegistrationsFilterParserActionTest extends TestCase
 {

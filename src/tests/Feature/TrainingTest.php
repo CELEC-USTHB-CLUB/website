@@ -87,7 +87,7 @@ class TrainingTest extends TestCase
             'linked_in' => 'x',
             'motivation' => 'x',
             'cv' => $file,
-            'image' => $file2
+            'image' => $file2,
         ]);
         $trainings = Training::factory()->state(['closing_inscription_at' => Carbon::now()->addDay()])->hasImage(1)->count(10)->create();
         $response = $this->post('/api/trainings/'.$trainings->first()->slug.'/register', [

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use App\Http\Resources\TagCollection;
 use App\Http\Resources\Tag as TagResource;
+use App\Tag;
 
 class TagController extends Controller
 {

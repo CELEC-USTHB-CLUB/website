@@ -22,8 +22,8 @@ class TrainingRegistrationFactory extends Factory
             'email' => $this->faker->email(),
             'registration_number' => rand(1, 99999),
             'phone' => $this->faker->phoneNumber(),
-            'course_goals' => "test",
-            'study_field' => 'test'
+            'course_goals' => 'test',
+            'study_field' => 'test',
         ];
     }
 }

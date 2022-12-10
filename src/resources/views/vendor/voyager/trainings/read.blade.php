@@ -203,6 +203,9 @@
                                 @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_invitations'))
                                     @livewire('generate-invitation', ['id' => $id])
                                 @endif
+                                @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_certifications'))
+                                    @livewire('generate-certifications', ['id' => $id])
+                                @endif
                             </div>
                         </div>
                     @endif
