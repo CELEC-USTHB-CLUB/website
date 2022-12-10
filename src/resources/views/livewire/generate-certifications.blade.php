@@ -7,7 +7,7 @@
                     <h4 class="mt-1 mr-2">Finished</h4>
                     <a href="{{ url('storage/'.$certificationsZipPath) }}"><h5>Download {{$certificationsZipPath}}</h5></a>
                 @else
-                     <h4 class="mt-1 mr-2" style="color: rgba(255, 110, 110, 0.815);">Error ! please view log file to fix bug</h4>
+                    <h4 class="mt-1 mr-2" style="color: rgba(255, 110, 110, 0.815);">Error ! please view log file to fix bug</h4>
                 @endif
             @else
                 <div wire:poll="checkStatus">
