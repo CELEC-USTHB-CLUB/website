@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Jobs\BadgeGeneratorJob;
 use App\Member;
-use App\Traits\Batchable;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use App\Traits\Batchable;
+use App\Jobs\BadgeGeneratorJob;
+use App\Contracts\BatchTerminateable;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Bus\Batch;
 
-class BadgeGenerator extends Component
+class BadgeGenerator extends Component implements BatchTerminateable
 {
     use Batchable;
 
@@ -24,7 +26,7 @@ class BadgeGenerator extends Component
         $this->batch(new BadgeGeneratorJob(Member::all()));
     }
 
-    public function batchFinished(): void
+    public function batchFinished(Batch $bus): void
     {
         $this->downloadLink = Cache::get('download-badges-path');
         Cache::forget('download-badges-path');

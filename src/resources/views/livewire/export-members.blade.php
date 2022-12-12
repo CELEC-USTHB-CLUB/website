@@ -1,7 +1,5 @@
 <div>
-    <button class="btn btn-primary btn-add-new" wire:click="generate">
-        <i class="voyager-list"></i> Export badges
-    </button>
+    <button class="btn-outline-info btn" wire:click="export()">Export excel</button>
     @if($this->batch)
         <div style="margin-top: 1%; margin-left: 2%; color: black; border-left: 3px solid #f3f3f3; padding: 1%; font-weight: bolder;">
             @if($finished)
