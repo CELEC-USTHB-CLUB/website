@@ -88,7 +88,8 @@ class BadgeGeneratorJob implements ShouldQueue
         if (! is_dir(storage_path().'/app/public/badges/')) {
             mkdir(storage_path().'/app/public/badges/');
         }
-        $zip = Zip::create(storage_path().'/app/public/badges/'.$folder.'.zip');
+        $zip = new Zip;
+        $zip = $zip->create(storage_path().'/app/public/badges/'.$folder.'.zip');
         $zip->add(storage_path().'/app/badges/'.$folder.'/');
         $zip->close();
 
