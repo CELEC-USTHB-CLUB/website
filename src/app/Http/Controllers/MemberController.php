@@ -9,7 +9,7 @@ class MemberController extends Controller
 {
     public function create(CreateMemberRequest $request): Member
     {
-        return abort(201);
+        return abort(400);
         $skills = [];
         if ($request->skills !== null) {
             $skills = explode(',', $request->skills);
