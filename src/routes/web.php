@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\Certification;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InvitationsController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\InvitationsController;
 use App\Http\Controllers\TrainingRegistrationsController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return 'Welcome to CELEC API';

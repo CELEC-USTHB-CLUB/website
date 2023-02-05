@@ -10,5 +10,4 @@ class CertificationZip extends Model
     use HasFactory;
 
     protected $fillable = ['training_id', 'path'];
-
 }

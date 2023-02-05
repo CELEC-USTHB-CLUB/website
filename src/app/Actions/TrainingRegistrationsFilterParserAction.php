@@ -2,11 +2,14 @@
 
 namespace App\Actions;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Traits\FilterUserFunctionTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class TrainingRegistrationsFilterParserAction
 {
+    use FilterUserFunctionTrait;
+
     const PARSER_SEPARATOR = '/';
 
     const FILTER_OPERATIONS = ['asc', 'desc', '=', '<', '>', '<=', '>='];
@@ -34,11 +37,18 @@ class TrainingRegistrationsFilterParserAction
         $modelFillables = $this->model->getFillable();
         array_push($modelFillables, 'created_at');
         foreach ($lines as $filterLine) {
-            $line = $this->readLine($filterLine);
-            if (count($line) === 0) {
-                return false;
+            if($this->isUserFunction($filterLine)) {
+                $functionName = $this->getUserFunctionName($filterLine);
+                $parameters = $this->getFunctionParameters($filterLine);
+                $this->callUserFunction($functionName, $this->builder, $parameters);
+            }else {
+                $line = $this->readLine($filterLine);
+                if (count($line) === 0) {
+                    return false;
+                }
+                $this->parseLine($line, $this->builder);
             }
-            $this->parseLine($line, $this->builder);
+            
         }
 
         return $this->builder;
@@ -62,9 +72,6 @@ class TrainingRegistrationsFilterParserAction
         $filterName = $filterKeyValue[0];
         $filterValue = $filterKeyValue[1];
         $columnName = $this->getColumnName($filterName);
-        if ($columnName === 'is_celec_member') {
-            $columnName = 'is_celec_memeber';
-        }
 
         return ['columnName' => $columnName, 'value' => $filterValue, 'operationMethod' => $operationMethod, 'operationValue' => $operationValue];
     }
@@ -87,4 +94,31 @@ class TrainingRegistrationsFilterParserAction
             ? $this->builder->where($filter['columnName'], $filter['operationValue'], $filter['value'])
             : $this->builder->orderBy($filter['columnName'], $filter['operationValue']);
     }
+
+    public function isUserFunction(string $line): bool
+    {
+        preg_match("/.*(?=[\(])/", $line, $matches);        
+        return count($matches) > 0;
+    }
+
+    public function getUserFunctionName(string $line): string
+    {
+        preg_match("/.*(?=[\(])/", $line, $matches);
+        return $matches[0];         
+    }
+
+    public function getFunctionParameters(string $line): array
+    {
+        preg_match("/\((.*)\)/", $line, $matches);
+        if (count($matches) < 2) {
+            return [];
+        }
+        return explode(",", $matches[1]);        
+    }
+
+    public function callUserFunction(string $name, builder $builder, $parameters): Builder
+    {
+        return $this->{$name}($builder, $parameters);
+    }
+
 }

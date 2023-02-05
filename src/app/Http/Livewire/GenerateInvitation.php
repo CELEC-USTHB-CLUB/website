@@ -2,15 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use Throwable;
+use App\Contracts\BatchTerminateable;
+use App\Jobs\GenerateInvitationsJob;
 use App\Training;
-use Livewire\Component;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Bus;
-use App\Jobs\GenerateInvitationsJob;
-use App\Contracts\BatchTerminateable;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class GenerateInvitation extends Component implements BatchTerminateable
 {
@@ -54,9 +53,7 @@ class GenerateInvitation extends Component implements BatchTerminateable
         $this->batchId = $batch->id;
     }
 
-
-
-    public function batchFinished(Batch $bus) : void
+    public function batchFinished(Batch $bus): void
     {
         $training = Training::findOrFail($this->training_id);
         $this->invitationsZipPath = $training->archive()->latest()->get()->first()->path;

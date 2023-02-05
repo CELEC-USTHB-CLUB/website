@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Training;
-use Carbon\Carbon;
-use Tests\TestCase;
 use App\Models\Event;
-use App\TrainingRegistration;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+use App\Models\EventRegistration;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class EventTest extends TestCase
 {
@@ -25,29 +22,57 @@ class EventTest extends TestCase
         $response->assertJsonCount($events->count(), 'data');
     }
 
-    public function testGettingSignleTraining()
+    public function testGettingSignleEvent()
     {
         $events = Event::factory()->hasImage(1)->count(10)->create();
         $response = $this->get('/api/events/'.$events->first()->id);
         $response->assertStatus(200);
     }
 
-    public function testRegisterToValidTraining()
+    public function testRegisterToValidEvent()
     {
-        $trainings = Training::factory()->state(['closing_inscription_at' => Carbon::now()->addDay()])->hasImage(1)->count(10)->create();
-        $response = $this->post('/api/trainings/'.$trainings->first()->slug.'/register', [
-            'fullname' => 'test',
-            'email' => 'test@gmail.com',
-            'registration_number' => 'test',
-            'phone' => 'test',
-            'is_celec_memeber' => 'yes',
-            'study_level' => 'test',
-            'study_field' => 'test',
-            'course_goals' => 'test',
+        $events = Event::factory()->state(['closing_at' => Carbon::now()->addDay()])->hasImage(1)->count(10)->create();
+        $response = $this->post('/api/events/'.$events->first()->id.'/register', [
+            'firstname' => 'laggoune',
+            'lastname' => 'walid',
+            'email' => 'walid@mail.com',
+            'phone_number' => '0555555555',
+            'id_card_number' => '123951357',
+            'are_you_student' => 'yes',
+            'motivation' => 'simple motivation',
         ]);
         $response->assertStatus(201);
-        $this->assertDatabaseCount('training_registrations', 1);
-        $this->assertEquals(TrainingRegistration::all()->first()->is_celec_memeber, false);
+        $this->assertDatabaseCount('event_registrations', 1);
+
+        $response = $this->post('/api/events/'.$events->first()->id.'/register', [
+            'firstname' => 'laggoune',
+            'lastname' => 'walid',
+            'email' => 'wali2d@mail.com',
+            'phone_number' => '05552555555',
+            'id_card_number' => '1239521357',
+            'are_you_student' => 'yes',
+            'motivation' => 'simple motivation',
+            'study_field' => 'Math',
+            'fonction' => 'backend dev',
+        ]);
+        $response->assertStatus(201);
+        $this->assertDatabaseCount('event_registrations', 2);
+        $this->assertEquals(EventRegistration::all()->last()->fonction, 'backend dev');
     }
 
+    public function testRegisterToNonValidEvent()
+    {
+        $events = Event::factory()->state(['closing_at' => Carbon::now()->subDay()])->hasImage(1)->count(10)->create();
+        $response = $this->post('/api/events/'.$events->first()->id.'/register', [
+            'firstname' => 'laggoune',
+            'lastname' => 'walid',
+            'email' => 'walid@mail.com',
+            'phone_number' => '0555555555',
+            'id_card_number' => '123951357',
+            'are_you_student' => 'yes',
+            'motivation' => 'simple motivation',
+        ]);
+        $response->assertStatus(403);
+        $this->assertDatabaseCount('event_registrations', 0);
+    }
 }

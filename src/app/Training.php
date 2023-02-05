@@ -78,5 +78,4 @@ class Training extends Model
     {
         return $this->hasMany(CertificationZip::class);
     }
-
 }

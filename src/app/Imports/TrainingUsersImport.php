@@ -59,11 +59,12 @@ class TrainingUsersImport implements ToCollection
 
     public function generateSignature(string $fullname): string
     {
-        $signature =  'CELEC-'.uniqid();
+        $signature = 'CELEC-'.uniqid();
         $this->training->certifications()->create([
             'fullname' => $fullname,
-            'signature' => $signature
+            'signature' => $signature,
         ]);
+
         return $signature;
     }
 

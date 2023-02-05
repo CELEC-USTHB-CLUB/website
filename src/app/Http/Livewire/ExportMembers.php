@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
+use App\Contracts\BatchTerminateable;
+use App\Jobs\ExportMembersJob;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use App\Jobs\ExportMembersJob;
-use App\Contracts\BatchTerminateable;
 use Illuminate\Support\Facades\Cache;
+use Livewire\Component;
 
 class ExportMembers extends Component implements BatchTerminateable
 {
@@ -20,7 +20,6 @@ class ExportMembers extends Component implements BatchTerminateable
         return view('livewire.export-members');
     }
 
-
     public function export(): void
     {
         $this->batch(new ExportMembersJob());
@@ -31,5 +30,4 @@ class ExportMembers extends Component implements BatchTerminateable
         $this->downloadLink = Cache::get('exported-users-path');
         Cache::forget('exported-users-path');
     }
-
 }

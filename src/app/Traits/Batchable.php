@@ -45,12 +45,11 @@ trait Batchable
         if ($bus->failedJobs > 0) {
             $this->finished = true;
             $this->error = true;
-        }else {
+        } else {
             if ($bus->finished()) {
                 $this->batchFinished($bus);
             }
             $this->finished = $bus->finished();
         }
-        
     }
 }

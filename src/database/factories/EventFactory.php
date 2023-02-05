@@ -22,7 +22,7 @@ class EventFactory extends Factory
             'description' => $this->faker->paragraph(),
             'location' => 'Alger',
             'closing_at' => Carbon::now(),
-            'is_closed' => false
+            'is_closed' => false,
         ];
     }
 }

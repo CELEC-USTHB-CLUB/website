@@ -16,6 +16,7 @@ class CertificationController extends Controller
         if ($certification === null) {
             return abort(404);
         }
+
         return view('certification', ['certification' => $certification]);
     }
 }

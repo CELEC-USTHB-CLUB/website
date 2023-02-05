@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Member;
-use Livewire\Component;
-use App\Traits\Batchable;
-use App\Jobs\BadgeGeneratorJob;
 use App\Contracts\BatchTerminateable;
-use Illuminate\Support\Facades\Cache;
+use App\Jobs\BadgeGeneratorJob;
+use App\Member;
+use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Component;
 
 class BadgeGenerator extends Component implements BatchTerminateable
 {

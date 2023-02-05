@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('location');
             $table->dateTime('closing_at');
-            $table->boolean('is_closed');            
+            $table->boolean('is_closed');
             $table->timestamps();
         });
     }

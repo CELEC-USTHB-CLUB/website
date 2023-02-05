@@ -48,7 +48,7 @@ class TrainingTest extends TestCase
         $this->assertEquals(TrainingRegistration::all()->first()->is_celec_memeber, false);
     }
 
-    public function testRegisterToNonValidTest()
+    public function testRegisterToNonValidTraining()
     {
         $trainings = Training::factory()->state(['closing_inscription_at' => Carbon::now()->subDay()])->hasImage(1)->count(10)->create();
         $response = $this->post('/api/trainings/'.$trainings->first()->slug.'/register', [
