@@ -39,6 +39,7 @@ Route::GROUP(['prefix' => 'contact'], function () {
 
 Route::GROUP(['prefix' => 'events'], function () {
     Route::GET('all', [EventController::class, 'all']);
+    Route::GET('{event}', [EventController::class, 'get']);
 });
 
 Route::GROUP(['prefix' => 'invitation'], function () {

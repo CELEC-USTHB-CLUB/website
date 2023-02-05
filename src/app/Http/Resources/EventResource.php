@@ -17,9 +17,10 @@ class EventResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'description' => $this->name,
-            'color' => $this->color,
-            'url' => $this->url,
+            'description' => $this->description,
+            'closing_at' => $this->closing_at,
+            'location' => $this->location,
+            'is_closed' => $this->isClosed(),
             'image' => $this->image->path,
         ];
     }
