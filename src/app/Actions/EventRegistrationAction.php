@@ -16,6 +16,7 @@ class EventRegistrationAction
         string $id_card_number,
         string $are_you_student,
         string $motivation,
+        string $is_usthb,
         ?string $study_field = null,
         ?string $fonction = null
     ): EventRegistration {
@@ -30,6 +31,7 @@ class EventRegistrationAction
             'motivation' => $motivation,
             'study_field' => $study_field,
             'fonction' => $fonction,
+            'is_usthb' => ($is_usthb == 'yes') ? true : false
         ]);
     }
 }

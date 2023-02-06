@@ -32,6 +32,7 @@ class EventRegistrationRequest extends FormRequest
             'id_card_number' => ['required', Rule::unique('event_registrations')->where(fn ($query) => $query->where('event_registrations.event_id', $this->route('event')->id))],
             'are_you_student' => ['required'],
             'motivation' => ['required'],
+            'is_usthb' => ['required'],
             // study_field
             // fonction
         ];

@@ -9,7 +9,7 @@ class EventRegistration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['event_id', 'firstname', 'lastname', 'email', 'phone_number', 'id_card_number', 'is_student', 'motivation', 'study_field', 'fonction'];
+    protected $fillable = ['event_id', 'firstname', 'lastname', 'email', 'phone_number', 'id_card_number', 'is_student', 'motivation', 'study_field', 'fonction', 'is_usthb'];
 
     public $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',

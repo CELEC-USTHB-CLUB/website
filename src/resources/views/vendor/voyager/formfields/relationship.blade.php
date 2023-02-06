@@ -82,7 +82,7 @@
                     @if(empty($selected_values))
                         <p>{{ __('voyager::generic.no_results') }}</p>
                     @else
-                        @if($options->model === "App\\TrainingRegistration")
+                        @if($options->model === "App\\TrainingRegistration" OR $options->model === "\\App\Models\\EventRegistration")
                             <p>{{ count($selected_values) }}</p>
                         @else
                             <p>{{ $selected_values }}</p>
@@ -92,7 +92,7 @@
                     @if(empty($selected_values))
                         <p>{{ __('voyager::generic.no_results') }}</p>
                     @else
-                        @if($options->model === "App\\TrainingRegistration")
+                        @if($options->model === "App\\TrainingRegistration" OR $options->model === "\\App\Models\\EventRegistration")
                             <p>{{ count($selected_values) }}</p>
                         @else
                             <ul>

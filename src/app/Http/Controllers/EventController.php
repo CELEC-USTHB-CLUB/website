@@ -39,6 +39,7 @@ class EventController extends Controller
             $request->id_card_number,
             $request->are_you_student,
             $request->motivation,
+            $request->is_usthb,
             ($request->has('study_field')) ? $request->study_field : null,
             ($request->has('fonction')) ? $request->fonction : null
         );
