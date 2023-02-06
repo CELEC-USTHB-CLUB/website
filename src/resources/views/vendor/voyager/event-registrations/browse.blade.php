@@ -51,18 +51,7 @@
                             @csrf
                             <div style="margin: 2%;">
                                 <div>
-                                    <p>
-                                        Ordering :
-                                        <ul>
-                                            <li>Column Name=asc</li>
-                                            <li>Column Name=desc</li>
-                                        </ul>
-                                        Matching :
-                                        <ul>
-                                            <li>Column Name=value</li>
-                                            <li>Column Name=value1,value2</li>
-                                        </ul>
-                                    </p>
+                                    Please read documentation: <a href="https://docs.google.com/document/d/e/2PACX-1vQWnJPqu7UYC_MhceHYRb-aVtdoSF7eSN8_AlufMoOTbftKZ60oAIHnZfgOAiNMD2Sesth2FnqTc3VQ/pub">https://docs.google.com/document/d/e/2PACX-1vQWnJPqu7UYC_MhceHYRb-aVtdoSF7eSN8_AlufMoOTbftKZ60oAIHnZfgOAiNMD2Sesth2FnqTc3VQ/pub</a>
                                 </div>
                                 <h3>Filter registrations: </h3>  
                                 <textarea placeholder="use / to separate queries" name="filters" class="form-control" style="max-width: 100%; height: 200px;"></textarea>
