@@ -40,17 +40,9 @@ class GenerateInvitation extends Component implements BatchTerminateable
         ]);
         $training = Training::findOrFail($this->training_id);
         $path = $this->excel->store('uploaded-accepted-users');
-        if ($this->batchId !== null) {
-            $batch = Bus::findBatch($this->batchId);
-            $batch->cancel();
-            $this->batchId = null;
-            $this->finished = false;
-        }
         $this->batch(
             new GenerateInvitationsJob($training, $path),
         );
-
-        $this->batchId = $batch->id;
     }
 
     public function batchFinished(Batch $bus): void
