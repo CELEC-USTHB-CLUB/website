@@ -43,6 +43,7 @@ services:
       - ./php/supervisor/conf.d:/etc/supervisor/conf.d
     networks:
       - celec-website-network
+    command: bash -c "touch /var/run/supervisor.sock && supervisord -c /etc/supervisor/supervisord.conf"
   nginx:
     image: nginx:stable
     container_name: nginx_celec_web
