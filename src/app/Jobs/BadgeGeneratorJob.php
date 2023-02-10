@@ -98,7 +98,7 @@ class BadgeGeneratorJob implements ShouldQueue
 
     public function addResponsiveFullname(Fpdi $fpdi, string $fullname): BadgeGeneratorJob
     {
-        if (strlen($fullname) >= 18) {
+        if (strlen($fullname) >= 15) {
             $fpdi->SetFont('Times', null, 12);
             $left = 30;
             $top = 20;
