@@ -206,6 +206,7 @@
                                 @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_certifications'))
                                     @livewire('generate-certifications', ['id' => $id])
                                 @endif
+                                @livewire('export-checks', ['id' => $id])
                             </div>
                         </div>
                     @endif

@@ -50,6 +50,8 @@ trait Batchable
                 $this->batchFinished($bus);
             }
             $this->finished = $bus->finished();
+            $this->error = false;
         }
     }
+
 }
