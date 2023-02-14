@@ -36,7 +36,7 @@ class GenerateTrainingChecksJob implements ShouldQueue
      */
     public function handle()
     {
-        Excel::store(new CheckExport($this->training->id), 'check-'.$this->training->id.'-export.xlsx');
-        Cache::put('training-checks-excel-'.$this->training->id, 'xxx');
+        Excel::store(new CheckExport($this->training->id), 'public/checks-'.$this->training->id.'-export.xlsx');
+        Cache::put('training-checks-excel-'.$this->training->id, 'checks-'.$this->training->id.'-export.xlsx');
     }
 }
