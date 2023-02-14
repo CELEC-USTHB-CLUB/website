@@ -28,7 +28,22 @@ return [
                  */
                 'exclude' => [
                     base_path('vendor'),
-                    base_path('node_modules'),
+                    base_path('vendor'),
+                    base_path('storage/app/badges'),
+                    base_path('storage/app/certifications-papers'),
+                    base_path('storage/app/certificationsSignatures'),
+                    base_path('storage/app/checkInsBarCodes'),
+                    base_path('storage/app/checkOutsBarCodes'),
+                    base_path('storage/app/invitations-papers'),
+                    base_path('storage/app/livewire-tmp'),
+                    base_path('storage/app/papersBarCodes'),
+                    base_path('storage/app/uploaded-accepted-users'),
+                    base_path('storage/app/uploaded-certefications-users'),
+                    base_path('storage/app/uploaded-certifications-templates'),
+                    base_path('storage/app/public/archive-certifications-papers'),
+                    base_path('storage/app/public/archive-certifications-papers'),
+                    base_path('storage/app/public/archive-invitations-papers'),
+                    base_path('storage/app/public/badges'),
                 ],
 
                 /*
