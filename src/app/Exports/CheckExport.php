@@ -39,7 +39,7 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
                 }
 
                 if ($key+1 === $memberChecks->count() AND $lastCheckout === null) {
-                    $lastCheckout = $check->checkedIn_at;
+                    $lastCheckout = $check->checkedOut_at;
                 }
 
                 $checksText .= "Check in ".($key+1)." at :".$check->checkedIn_at." ";
