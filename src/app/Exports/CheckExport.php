@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use Carbon\Carbon;
 use App\Models\Check;
+use Carbon\CarbonInterface;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -32,15 +33,15 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
             $checksText = "";
             $firstCheckin = null;
             $lastCheckout = null;
+            if ($firstCheckin === null) {
+                $firstCheckin = $memberChecks->first()->checkedIn_at;
+            }
+
+            if ($lastCheckout === null) {
+                $lastCheckout = $memberChecks->last()->checkedOut_at;
+            }
+
             foreach($memberChecks as $key => $check) {
-
-                if ($key == 0 AND $firstCheckin === null) {
-                    $firstCheckin = $check->checkedIn_at;
-                }
-
-                if ($key+1 === $memberChecks->count() AND $lastCheckout === null) {
-                    $lastCheckout = $check->checkedOut_at;
-                }
 
                 $checksText .= "Check in ".($key+1)." at :".$check->checkedIn_at." ";
                 $checksText .= "/ Check out ".($key+1)." at :".$check->checkedOut_at;
@@ -55,7 +56,7 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
                 }
             }
             if ($firstCheckin !== null AND $lastCheckout !== null) {
-                $totalTime = Carbon::parse($check->checkedOut_at)->longAbsoluteDiffForHumans($check->checkedIn_at);
+                $totalTime = $lastCheckout->diffForHumans($firstCheckin, ['parts' => 3, 'syntax' => CarbonInterface::DIFF_ABSOLUTE]);
             }else {
                 $totalTime = "Could not calculate total time (no checkout found)";
             }
