@@ -7,7 +7,6 @@ use App\Jobs\GenerateInvitationsJob;
 use App\Training;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 

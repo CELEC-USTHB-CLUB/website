@@ -31,7 +31,7 @@ class EventRegistrationAction
             'motivation' => $motivation,
             'study_field' => $study_field,
             'fonction' => $fonction,
-            'is_usthb' => ($is_usthb == 'yes') ? true : false
+            'is_usthb' => ($is_usthb == 'yes') ? true : false,
         ]);
     }
 }

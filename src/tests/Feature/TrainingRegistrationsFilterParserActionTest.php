@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Actions\TrainingRegistrationsFilterParserAction;
 use App\Training;
-use Tests\TestCase;
 use App\TrainingRegistration;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Actions\TrainingRegistrationsFilterParserAction;
+use Tests\TestCase;
 
 class TrainingRegistrationsFilterParserActionTest extends TestCase
 {
@@ -34,7 +34,6 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $trainingRegistrationsFilterParserAction = new TrainingRegistrationsFilterParserAction($filterText, new TrainingRegistration, $registrationsBuilder);
 
         $this->assertEquals($registrations->count(), $trainingRegistrationsFilterParserAction->parse()->get()->count());
-
 
         $registrations = TrainingRegistration::factory()->count(1)->create([
             'is_celec_memeber' => 1,
@@ -104,7 +103,6 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $this->assertEquals($registrations2->count(), $trainingRegistrationsFilterParserAction->parse()->get()->count());
     }
 
-
     public function testFilterUserFunctionTrainingsLessThan(): void
     {
         $trainings = Training::factory()->hasImage(1)->count(10)->create();
@@ -118,11 +116,11 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
 
         $trainings->first()->invitations()->create([
             'path' => '123.pdf',
-            'member_id' => $registration->id
+            'member_id' => $registration->id,
         ]);
         $trainings->first()->invitations()->create([
             'path' => '123.pdf',
-            'member_id' => $registration->id
+            'member_id' => $registration->id,
         ]);
 
         $filterText = 'has_been_accepted_to_trainings_less_than(1)';
@@ -144,11 +142,11 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
 
         $trainings->first()->invitations()->create([
             'path' => '123.pdf',
-            'member_id' => $registration->id
+            'member_id' => $registration->id,
         ]);
         $trainings->first()->invitations()->create([
             'path' => '123.pdf',
-            'member_id' => $registration->id
+            'member_id' => $registration->id,
         ]);
 
         $filterText = 'has_been_accepted_to_trainings_greater_than(1)';
@@ -182,12 +180,12 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $registrationsL22 = TrainingRegistration::factory()->count(3)->create([
             'is_celec_memeber' => 1,
             'study_level' => 'L2',
-            'email' => 'walid@mail.com'
+            'email' => 'walid@mail.com',
         ]);
 
         $registrationsL11 = $registrationsL1->take(1);
-        
-        foreach($registrationsL22 as $registration) {
+
+        foreach ($registrationsL22 as $registration) {
             $trainings->first()->invitations()->create([
                 'path' => '123.pdf',
                 'member_id' => $registration->id,
@@ -199,7 +197,6 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $trainingRegistrationsFilterParserAction = new TrainingRegistrationsFilterParserAction($filterText, new TrainingRegistration, $registrationsBuilder);
 
         $this->assertEquals(3, $trainingRegistrationsFilterParserAction->parse()->get()->count());
-
 
         $filterText = 'Study Level=L2/has_been_accepted_to_trainings_less_than(1)';
 
@@ -214,8 +211,7 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $trainingRegistrationsFilterParserAction = new TrainingRegistrationsFilterParserAction($filterText, new TrainingRegistration, $registrationsBuilder);
         $this->assertEquals(13, $trainingRegistrationsFilterParserAction->parse()->get()->count());
 
-
-        foreach($registrationsL11 as $registration) {
+        foreach ($registrationsL11 as $registration) {
             $trainings->first()->invitations()->create([
                 'path' => '123.pdf',
                 'member_id' => $registration->id,
@@ -230,6 +226,5 @@ class TrainingRegistrationsFilterParserActionTest extends TestCase
         $registrationsBuilder = TrainingRegistration::query();
         $trainingRegistrationsFilterParserAction = new TrainingRegistrationsFilterParserAction($filterText, new TrainingRegistration, $registrationsBuilder);
         $this->assertEquals(4, $trainingRegistrationsFilterParserAction->parse()->get()->count());
-
     }
 }

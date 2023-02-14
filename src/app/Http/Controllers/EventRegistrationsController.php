@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EventRegistrationsExport;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\EventRegistrationsExport;
 
 class EventRegistrationsController extends Controller
 {

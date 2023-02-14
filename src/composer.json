@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
+        "masbug/flysystem-google-drive-ext": "^2.2",
         "meilisearch/meilisearch-php": "^0.23.3",
         "picqer/php-barcode-generator": "^2.2",
         "predis/predis": "^1.1",
@@ -22,6 +23,7 @@
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.3",
         "simplesoftwareio/simple-qrcode": "~4",
+        "spatie/laravel-backup": "^8.1",
         "tcg/voyager": "^1.5",
         "zanysoft/laravel-zip": "^2.0"
     },

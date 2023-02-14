@@ -53,5 +53,4 @@ trait Batchable
             $this->error = false;
         }
     }
-
 }

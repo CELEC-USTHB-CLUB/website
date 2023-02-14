@@ -3,8 +3,8 @@
 namespace App\Actions;
 
 use App\Traits\FilterUserFunctionTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class TrainingRegistrationsFilterParserAction
 {
@@ -37,18 +37,17 @@ class TrainingRegistrationsFilterParserAction
         $modelFillables = $this->model->getFillable();
         array_push($modelFillables, 'created_at');
         foreach ($lines as $filterLine) {
-            if($this->isUserFunction($filterLine)) {
+            if ($this->isUserFunction($filterLine)) {
                 $functionName = $this->getUserFunctionName($filterLine);
                 $parameters = $this->getFunctionParameters($filterLine);
                 $this->callUserFunction($functionName, $this->builder, $parameters);
-            }else {
+            } else {
                 $line = $this->readLine($filterLine);
                 if (count($line) === 0) {
                     return false;
                 }
                 $this->parseLine($line, $this->builder);
             }
-            
         }
 
         return $this->builder;
@@ -97,14 +96,16 @@ class TrainingRegistrationsFilterParserAction
 
     public function isUserFunction(string $line): bool
     {
-        preg_match("/.*(?=[\(])/", $line, $matches);        
+        preg_match("/.*(?=[\(])/", $line, $matches);
+
         return count($matches) > 0;
     }
 
     public function getUserFunctionName(string $line): string
     {
         preg_match("/.*(?=[\(])/", $line, $matches);
-        return $matches[0];         
+
+        return $matches[0];
     }
 
     public function getFunctionParameters(string $line): array
@@ -113,12 +114,12 @@ class TrainingRegistrationsFilterParserAction
         if (count($matches) < 2) {
             return [];
         }
-        return explode(",", $matches[1]);        
+
+        return explode(',', $matches[1]);
     }
 
     public function callUserFunction(string $name, builder $builder, $parameters): Builder
     {
         return $this->{$name}($builder, $parameters);
     }
-
 }

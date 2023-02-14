@@ -37,3 +37,5 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 RUN touch /usr/local/etc/php/conf.d/uploads.ini \
     && echo "upload_max_filesize = 10M;" >> /usr/local/etc/php/conf.d/uploads.ini
+RUN apt update && \
+    apt install -y mariadb-client

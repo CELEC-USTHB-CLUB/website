@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Contracts\BatchTerminateable;
+use App\Jobs\GenerateTrainingChecksJob;
 use App\Training;
-use Livewire\Component;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use App\Contracts\BatchTerminateable;
 use Illuminate\Support\Facades\Cache;
-use App\Jobs\GenerateTrainingChecksJob;
+use Livewire\Component;
 
 class ExportChecks extends Component implements BatchTerminateable
 {
@@ -42,5 +42,4 @@ class ExportChecks extends Component implements BatchTerminateable
         $this->checksZipPath = Cache::get('training-checks-excel-'.$this->training_id);
         Cache::forget('training-checks-excel-'.$this->training_id);
     }
-
 }

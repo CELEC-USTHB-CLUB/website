@@ -2,18 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Training;
 use App\Exports\CheckExport;
-use App\Imports\CheckImport;
+use App\Training;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GenerateTrainingChecksJob implements ShouldQueue
 {

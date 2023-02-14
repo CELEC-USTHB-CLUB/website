@@ -40,7 +40,7 @@ class EventTest extends TestCase
             'id_card_number' => '123951357',
             'are_you_student' => 'yes',
             'motivation' => 'simple motivation',
-            'is_usthb' => 'yes'
+            'is_usthb' => 'yes',
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseCount('event_registrations', 1);
@@ -55,7 +55,7 @@ class EventTest extends TestCase
             'motivation' => 'simple motivation',
             'study_field' => 'Math',
             'fonction' => 'backend dev',
-            'is_usthb' => 'yes'
+            'is_usthb' => 'yes',
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseCount('event_registrations', 2);
@@ -73,7 +73,7 @@ class EventTest extends TestCase
             'id_card_number' => '123951357',
             'are_you_student' => 'yes',
             'motivation' => 'simple motivation',
-            'is_usthb' => 'yes'
+            'is_usthb' => 'yes',
         ]);
         $response->assertStatus(403);
         $this->assertDatabaseCount('event_registrations', 0);

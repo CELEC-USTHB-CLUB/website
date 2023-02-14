@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait FilterUserFunctionTrait
 {
-
     public function have_trainings_count_less_than($builder, $parameters): Builder
     {
         return $builder->whereRaw('(SELECT count(*) from training_registrations as training_registrations_groupped where email = training_registrations.email group by email) < ?', [$parameters[0]]);
@@ -19,7 +18,6 @@ trait FilterUserFunctionTrait
 
     public function has_been_accepted_to_trainings_greater_than($builder, $parameters): Builder
     {
-
         return $builder
             ->whereRaw('(select
                             count(*)

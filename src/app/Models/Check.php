@@ -17,10 +17,8 @@ class Check extends Model
         'checkedOut_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-
     public function member()
     {
         return $this->belongsTo(TrainingRegistration::class);
     }
-
 }
