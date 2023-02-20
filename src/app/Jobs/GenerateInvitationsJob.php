@@ -3,10 +3,10 @@
 namespace App\Jobs;
 
 use App\Imports\UsersImport;
-use App\Training;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -21,7 +21,7 @@ class GenerateInvitationsJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Training $training, public string $path)
+    public function __construct(public Model $model, public string $path)
     {
         //
     }
@@ -33,6 +33,6 @@ class GenerateInvitationsJob implements ShouldQueue
      */
     public function handle()
     {
-        Excel::import(new UsersImport($this->training), storage_path('app/'.$this->path));
+        Excel::import(new UsersImport($this->model), storage_path('app/'.$this->path));
     }
 }

@@ -181,7 +181,7 @@
                     		@endif
                     	@endforeach
                     @endif
-                    @if($dataType->model_name === "App\Training")
+                    @if($dataType->model_name === "App\Models\Event")
                         <div class="form-group" style="border-bottom:0;">
                             <div class="col col-12">
                                 @if ($errors->any())
@@ -200,14 +200,10 @@
                                         </ul>
                                     </div>
                                 @endif
-                                @inject('training', 'App\Training')
                                 @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_invitations'))
-                                    @livewire('generate-invitation', ['id' => $id, 'model' => $training])
+                                    @livewire('generate-invitation', ['id' => $id, 'model' => new \App\Models\Event])
                                 @endif
-                                @if(auth()->user()->role->name === "admin" OR auth()->user()->hasPermission('generate_certifications'))
-                                    @livewire('generate-certifications', ['id' => $id])
-                                @endif
-                                @livewire('export-checks', ['id' => $id, 'model' => $training])
+                                @livewire('export-checks', ['id' => $id, 'model' => new \App\Models\Event])
                             </div>
                         </div>
                     @endif

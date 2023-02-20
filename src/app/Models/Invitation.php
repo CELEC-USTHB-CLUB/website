@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Training;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Invitation extends Model
 {
@@ -12,8 +12,8 @@ class Invitation extends Model
 
     protected $fillable = ['path', 'training_id', 'member_id'];
 
-    public function training()
+    public function invitationable(): MorphTo
     {
-        return $this->belongsTo(Training::class);
+        return $this->morphTo();
     }
 }

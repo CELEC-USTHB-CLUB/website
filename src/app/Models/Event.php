@@ -3,10 +3,16 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Check;
+use App\Models\Archive;
+use App\Models\Invitation;
 use Illuminate\Database\Eloquent\Model;
+use App\Contracts\InvitationableContract;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Event extends Model
+class Event extends Model implements InvitationableContract
 {
     use HasFactory;
 
@@ -29,5 +35,36 @@ class Event extends Model
     public function registrations()
     {
         return $this->hasMany(EventRegistration::class);
+    }
+
+    public function invitations(): MorphMany
+    {
+        return $this->morphMany(Invitation::class, 'invitationable');
+    }
+
+    public function archive(): MorphOne
+    {
+        return $this->morphOne(Archive::class, 'archiveable');
+    }
+
+    public function checks(): MorphMany
+    {
+        return $this->morphMany(Check::class, 'checkable');
+    }
+
+    public function getTitle(): string
+    {
+        return $this->name;
+    }
+
+    public function getStartDate(): string
+    {
+        return "";
+        return $this->starting_at;
+    }
+
+    public function getLocation(): string
+    {
+        return $this->location;
     }
 }

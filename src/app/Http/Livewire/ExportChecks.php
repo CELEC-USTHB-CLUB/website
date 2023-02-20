@@ -2,26 +2,29 @@
 
 namespace App\Http\Livewire;
 
-use App\Contracts\BatchTerminateable;
-use App\Jobs\GenerateTrainingChecksJob;
 use App\Training;
+use Livewire\Component;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
+use App\Contracts\BatchTerminateable;
 use Illuminate\Support\Facades\Cache;
-use Livewire\Component;
+use App\Jobs\GenerateTrainingChecksJob;
+use Illuminate\Database\Eloquent\Model;
 
 class ExportChecks extends Component implements BatchTerminateable
 {
     use Batchable;
 
-    public $training_id;
+    public $model_id;
+    public $model;
 
     public $checksZipPath;
 
-    public function mount(int $id)
+    public function mount(int $id, Model $model)
     {
-        $this->training_id = $id;
-        $training = Training::findOrFail($this->training_id);
+        $this->model_id = $id;
+        $this->model = $model;
+        $model = $this->model::findOrFail($this->model_id);
     }
 
     public function render()
@@ -31,15 +34,15 @@ class ExportChecks extends Component implements BatchTerminateable
 
     public function submit(): void
     {
-        $training = Training::findOrFail($this->training_id);
+        $model = $this->model::findOrFail($this->model_id);
         $this->batch(
-            new GenerateTrainingChecksJob($training),
+            new GenerateTrainingChecksJob($model),
         );
     }
 
     public function batchFinished(Batch $bus): void
     {
-        $this->checksZipPath = Cache::get('training-checks-excel-'.$this->training_id);
-        Cache::forget('training-checks-excel-'.$this->training_id);
+        $this->checksZipPath = Cache::get('training-checks-excel-'.$this->model_id);
+        Cache::forget('training-checks-excel-'.$this->model_id);
     }
 }

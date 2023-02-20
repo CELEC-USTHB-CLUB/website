@@ -10,12 +10,17 @@ class Check extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['member_id', 'invitation_id', 'training_id', 'checkedIn_at', 'checkedOut_at'];
+    protected $fillable = ['member_id', 'invitation_id', 'checkable_id', 'checkable_type', 'checkedIn_at', 'checkedOut_at'];
 
     public $casts = [
         'checkedIn_at' => 'datetime:Y-m-d H:i:s',
         'checkedOut_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function checkable()
+    {
+        return $this->morphTo();
+    }
 
     public function member()
     {

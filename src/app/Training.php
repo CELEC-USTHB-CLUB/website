@@ -2,18 +2,22 @@
 
 namespace App;
 
+use App\Contracts\InvitationableContract;
 use App\Models\Archive;
 use App\Models\Certification;
 use App\Models\CertificationZip;
+use App\Models\Check;
 use App\Models\Invitation;
 use App\Models\TrainingImage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 
-class Training extends Model
+class Training extends Model implements InvitationableContract
 {
     use HasFactory, Searchable;
 
@@ -59,14 +63,19 @@ class Training extends Model
         return $this->hasMany(TrainingRegistration::class);
     }
 
-    public function invitations()
+    public function invitations(): MorphMany
     {
-        return $this->hasMany(Invitation::class);
+        return $this->morphMany(Invitation::class, 'invitationable');
     }
 
-    public function archive()
+    public function archive(): MorphOne
     {
-        return $this->hasMany(Archive::class);
+        return $this->morphOne(Archive::class, 'archiveable');
+    }
+
+    public function checks(): MorphMany
+    {
+        return $this->morphMany(Check::class, 'checkable');
     }
 
     public function certifications()
@@ -77,5 +86,20 @@ class Training extends Model
     public function certificationZip()
     {
         return $this->hasMany(CertificationZip::class);
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getStartDate(): string
+    {
+        return $this->starting_at;
+    }
+
+    public function getLocation(): string
+    {
+        return $this->location;
     }
 }

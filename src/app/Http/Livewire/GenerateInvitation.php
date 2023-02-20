@@ -2,29 +2,33 @@
 
 namespace App\Http\Livewire;
 
-use App\Contracts\BatchTerminateable;
-use App\Jobs\GenerateInvitationsJob;
 use App\Training;
+use Livewire\Component;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use Livewire\Component;
+use App\Traits\HasInvitation;
 use Livewire\WithFileUploads;
+use App\Contracts\BatchTerminateable;
+use Illuminate\Database\Eloquent\Model;
 
 class GenerateInvitation extends Component implements BatchTerminateable
 {
-    use WithFileUploads, Batchable;
+    use WithFileUploads, Batchable, HasInvitation;
 
     public $excel;
 
-    public $training_id;
+    public $model_id;
+
+    public $model;
 
     public $invitationsZipPath;
 
-    public function mount(int $id)
+    public function mount(int $id, Model $model)
     {
-        $this->training_id = $id;
-        $training = Training::findOrFail($this->training_id);
-        $this->invitationsZipPath = $training->archive()->latest()->get()->first()?->path;
+        $this->model_id = $id;
+        $this->model = $model;
+        $model = $model::findOrFail($id);
+        $this->invitationsZipPath = $model->archive()->latest()->get()->first()?->path;
     }
 
     public function render()
@@ -37,16 +41,13 @@ class GenerateInvitation extends Component implements BatchTerminateable
         $this->validate([
             'excel' => 'max:1024|mimes:xlsx',
         ]);
-        $training = Training::findOrFail($this->training_id);
-        $path = $this->excel->store('uploaded-accepted-users');
-        $this->batch(
-            new GenerateInvitationsJob($training, $path),
-        );
+        $model = $this->model::findOrFail($this->model_id);
+        $this->generate($model);
     }
 
     public function batchFinished(Batch $bus): void
     {
-        $training = Training::findOrFail($this->training_id);
-        $this->invitationsZipPath = $training->archive()->latest()->get()->first()->path;
+        $model = $this->model::findOrFail($this->model_id);
+        $this->invitationsZipPath = $model->archive()->latest()->get()->first()->path;
     }
 }

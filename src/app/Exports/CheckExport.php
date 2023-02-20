@@ -2,16 +2,16 @@
 
 namespace App\Exports;
 
-use App\Models\Check;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
-    public function __construct(public int $training_id)
+    public function __construct(public Model $model)
     {
     }
 
@@ -25,7 +25,7 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
      */
     public function collection()
     {
-        return Check::where('training_id', $this->training_id)->get()->groupBy('member_id')->map(function ($memberChecks) {
+        return $this->model->checks()->get()->groupBy('member_id')->map(function ($memberChecks) {
             $checksText = '';
             $firstCheckin = null;
             $lastCheckout = null;
@@ -66,20 +66,4 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
             ];
         });
     }
-
-    // public function map($checksOfMember): array
-    // {
-    //     $data = [];
-    //     dd($checksOfMember);
-    //     foreach($checksOfMember as $check) {
-
-    //         array_push($data,  [
-    //             $check->id,
-    //             $check->member->fullname,
-    //             $check->member->email,
-
-    //         ]);
-    //     }
-    //     return $data;
-    // }
 }

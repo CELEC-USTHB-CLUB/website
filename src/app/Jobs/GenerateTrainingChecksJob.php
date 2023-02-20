@@ -3,10 +3,10 @@
 namespace App\Jobs;
 
 use App\Exports\CheckExport;
-use App\Training;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -22,7 +22,7 @@ class GenerateTrainingChecksJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Training $training)
+    public function __construct(public Model $model)
     {
         //
     }
@@ -34,7 +34,7 @@ class GenerateTrainingChecksJob implements ShouldQueue
      */
     public function handle()
     {
-        Excel::store(new CheckExport($this->training->id), 'public/checks-'.$this->training->id.'-export.xlsx');
-        Cache::put('training-checks-excel-'.$this->training->id, 'checks-'.$this->training->id.'-export.xlsx');
+        Excel::store(new CheckExport($this->model), 'public/checks-'.$this->model->id.'-export.xlsx');
+        Cache::put('training-checks-excel-'.$this->model->id, 'checks-'.$this->model->id.'-export.xlsx');
     }
 }

@@ -22,7 +22,8 @@ class CheckController extends Controller
 
         return Check::create([
             'invitation_id' => $signature->invitation_id,
-            'training_id' => $signature->invitation->training_id,
+            'checkable_id' => $signature->invitation->invitationable_id,
+            'checkable_type' => $signature->invitation->invitationable_type,
             'checkedIn_at' => Carbon::now(),
             'member_id' => $signature->member_id,
         ]);
@@ -34,11 +35,6 @@ class CheckController extends Controller
             'signature' => 'required',
         ]);
         $signature = Signature::where('checkout_code', $request->signature)->firstOrFail();
-
-        // if (! $signature->member()->exists()) {
-        //     return abort(404);
-        // }
-        // $last_checkin = $signature->member->checks()->latest()->first();
         $last_checkin = Check::where('member_id', $signature->member_id)->latest()->first();
         if ($last_checkin === null) {
             return abort(404);

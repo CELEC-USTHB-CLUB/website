@@ -21,11 +21,11 @@
             </div>
         @endif
     @endif
-    <form method="POST" action="{{ url('admin/trainings/invitations') }}" enctype="multipart/form-data" wire:submit.prevent="submit">
+    <form method="POST" enctype="multipart/form-data" wire:submit.prevent="submit">
         @csrf
         <h3 class="panel-title">Import users list (excel file)</h3>
         <input style="width: 100%;" wire:model="excel" type="file" class="input-control" name="file">
-        <input type="hidden" value="{{ $training_id }}" class="input-control" name="id">
+        <input type="hidden" value="{{ $model_id }}" class="input-control" name="id">
         <br/>
         <button class="btn btn-success" style="margin-left: 1%">Generate invitations</button>
     </form>
