@@ -15,7 +15,7 @@ class EventRegistrationsExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['#', 'Event id', 'Fullname', 'Email', 'Phone number', 'ID card number', 'Is student', 'Motivation', 'Study field', 'Created at', 'Fonction', 'Is usthb'];
+        return ['#', 'Event id', 'Fullname', 'Email', 'Phone number', 'ID card number', 'Is student', 'Motivation', 'Study field', 'Fonction', 'Created at', 'Is usthb'];
     }
 
     public function collection()
@@ -30,8 +30,8 @@ class EventRegistrationsExport implements FromCollection, WithHeadings
             'is_student', 
             'motivation', 
             'study_field', 
-            'created_at',
             'fonction', 
+            'created_at',
             'is_usthb'
         ])->where('event_id', $this->id)->get();
     }
