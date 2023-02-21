@@ -23,6 +23,8 @@ class GenerateInvitation extends Component implements BatchTerminateable
 
     public $invitationsZipPath;
 
+    public $template;
+
     public function mount(int $id, Model $model)
     {
         $this->model_id = $id;
@@ -41,8 +43,17 @@ class GenerateInvitation extends Component implements BatchTerminateable
         $this->validate([
             'excel' => 'max:1024|mimes:xlsx',
         ]);
+        $path = $this->excel->store('uploaded-accepted-users');
         $model = $this->model::findOrFail($this->model_id);
-        $this->generate($model);
+        if ($this->template !== null) {
+            $this->validate([
+                'template' => 'max:5024|mimes:pdf',
+            ]);
+            $templatePath = $this->template->store('uploaded-accepted-users');
+        }else {
+            $templatePath = null;
+        }
+        $this->generate($model, $path, $templatePath);
     }
 
     public function batchFinished(Batch $bus): void

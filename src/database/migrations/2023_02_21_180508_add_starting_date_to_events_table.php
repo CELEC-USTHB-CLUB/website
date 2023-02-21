@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invitations', function (Blueprint $table) {
-            $table->renameColumn('training_id', 'invitationable_id');
-            $table->string('invitationable_type')->default("App\\Training");
+        Schema::table('events', function (Blueprint $table) {
+            $table->dateTime('starting_at')->nullable();
         });
     }
 
@@ -26,5 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('events', function (Blueprint $table) {
+            //
+        });
     }
 };

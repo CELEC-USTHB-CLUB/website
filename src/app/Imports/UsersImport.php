@@ -15,7 +15,7 @@ use ZanySoft\Zip\Zip;
 
 class UsersImport implements ToCollection
 {
-    public function __construct(public Model $model)
+    public function __construct(public Model $model, public ?string $templatePath)
     {
     }
 
@@ -25,7 +25,12 @@ class UsersImport implements ToCollection
      */
     public function collection(Collection $rows)
     {
-        $invitationTemplate = storage_path('app/A4 - 1INVITATION.pdf');
+        if ($this->templatePath === null) {
+            $invitationTemplate = storage_path('app/A4 - 1INVITATION.pdf');
+        }else {
+            $invitationTemplate = $this->templatePath;
+        }
+        
 
         $folder = $this->model->getTitle().'-invitations-'.Carbon::now()->format('Y-m-d H:i:s');
         if (! is_dir(storage_path().'/app/invitations-papers/')) {
@@ -36,7 +41,7 @@ class UsersImport implements ToCollection
             if ($key > 0) {
                 $fpdi = new Fpdi;
                 $count = $fpdi->setSourceFile($invitationTemplate);
-                $fpdi->SetFont('Times', 'IUB', 24);
+                $fpdi->SetFont('Times', 'IB', 24);
                 for ($i = 1; $i <= $count; $i++) {
                     $fpdi->SetTextColor(68, 69, 68);
                     $template = $fpdi->importPage($i);
@@ -149,7 +154,7 @@ class UsersImport implements ToCollection
     {
         // $generator = new BarcodeGeneratorJPG();
         // $barcode = $generator->getBarcode($uuid, $generator::TYPE_CODE_128, 3, 50, [0, 0, 0]);
-        $barcode = QrCode::format('png')->size(100)->backgroundColor(243, 246, 249)->style('round')->color(2, 79, 156)->generate($uuid);
+        $barcode = QrCode::format('png')->size(100)->backgroundColor(243, 246, 249, 50)->style('round')->color(2, 79, 156)->generate($uuid);
         Storage::put('papersBarCodes/'.$uuid.'.png', $barcode);
         $fpdi->Image(storage_path('app/papersBarCodes/'.$uuid.'.png'), 10, 5, 50, 50, 'PNG');
 

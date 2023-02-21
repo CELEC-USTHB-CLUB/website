@@ -16,7 +16,7 @@ class Event extends Model implements InvitationableContract
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'closing_at', 'is_closed', 'location'];
+    protected $fillable = ['name', 'description', 'closing_at', 'is_closed', 'location', 'starting_at'];
 
     protected $casts = [
         'closing_at' => 'datetime:Y-m-d h:i',
@@ -59,7 +59,6 @@ class Event extends Model implements InvitationableContract
 
     public function getStartDate(): string
     {
-        return "";
         return $this->starting_at;
     }
 

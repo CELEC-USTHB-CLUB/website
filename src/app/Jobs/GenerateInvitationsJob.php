@@ -21,7 +21,7 @@ class GenerateInvitationsJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Model $model, public string $path)
+    public function __construct(public Model $model, public string $path, public ?string $templatePath)
     {
         //
     }
@@ -33,6 +33,11 @@ class GenerateInvitationsJob implements ShouldQueue
      */
     public function handle()
     {
-        Excel::import(new UsersImport($this->model), storage_path('app/'.$this->path));
+        if ($this->templatePath !== null) {
+            $templatePath = storage_path('app/'.$this->templatePath);
+        }else {
+            $templatePath = null;
+        }
+        Excel::import(new UsersImport($this->model, $templatePath), storage_path('app/'.$this->path));
     }
 }

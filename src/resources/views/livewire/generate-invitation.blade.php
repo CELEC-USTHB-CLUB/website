@@ -25,6 +25,8 @@
         @csrf
         <h3 class="panel-title">Import users list (excel file)</h3>
         <input style="width: 100%;" wire:model="excel" type="file" class="input-control" name="file">
+        <h3 class="panel-title">Import invitation PDF template (Not required , using default template if null)</h3>
+        <input style="width: 100%;" wire:model="template" type="file" class="input-control" name="file">
         <input type="hidden" value="{{ $model_id }}" class="input-control" name="id">
         <br/>
         <button class="btn btn-success" style="margin-left: 1%">Generate invitations</button>

@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 trait HasInvitation
 {
-    public function generate(Model $model)
+    public function generate(Model $model, string $usersListFilePath, ?string $templatePath)
     {
-        $path = $this->excel->store('uploaded-accepted-users');
         $this->batch(
-            new GenerateInvitationsJob($model, $path),
+            new GenerateInvitationsJob($model, $usersListFilePath, $templatePath),
         );
     }
 }
