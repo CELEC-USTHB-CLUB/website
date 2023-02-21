@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dateTime('starting_at')->nullable();
+            $table->date('starting_at')->nullable();
         });
     }
 
