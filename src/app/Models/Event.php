@@ -20,6 +20,7 @@ class Event extends Model implements InvitationableContract
 
     protected $casts = [
         'closing_at' => 'datetime:Y-m-d h:i',
+        'starting_at' => 'datetime: Y-m-d',
     ];
 
     public function image()
