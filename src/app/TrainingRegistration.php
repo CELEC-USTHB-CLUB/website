@@ -19,4 +19,10 @@ class TrainingRegistration extends Model
     {
         return $this->belongsTo(Training::class);
     }
+
+    public function fullname(): string
+    {
+        return $this->fullname;        
+    }
+
 }

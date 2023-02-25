@@ -70,7 +70,7 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
 
             return [
                 $member->id,
-                $member->fullname,
+                $member->fullname(),
                 $member->email,
                 $checksText,
                 $totalTime,
