@@ -25,8 +25,16 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
      */
     public function collection()
     {
-        return $this->model->checks()->get()->groupBy('member_id')->map(function ($memberChecks) {
-            if ($memberChecks->first()->member === null) {
+        $class = get_class($this->model);
+        return $this->model->checks()->get()->groupBy('member_id')->map(function ($memberChecks) use ($class) {
+            if ($class === "App\\Models\\Event") {
+                $member = $memberChecks->first()->eventMember;
+            }elseif($class === "App\\Training") {
+                $member = $memberChecks->first()->trainingMember;
+            }else {
+                return [];
+            }
+            if ($member === null) {
                 dump($memberChecks);
                 return [];
             }
@@ -61,9 +69,9 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
             }
 
             return [
-                $memberChecks->first()->id,
-                $memberChecks->first()->member->fullname,
-                $memberChecks->first()->member->email,
+                $member->id,
+                $member->fullname,
+                $member->email,
                 $checksText,
                 $totalTime,
                 $memberChecks->count(),

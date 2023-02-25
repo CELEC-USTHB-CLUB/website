@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\TrainingRegistration;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\EventRegistration;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Check extends Model
 {
@@ -22,8 +23,15 @@ class Check extends Model
         return $this->morphTo();
     }
 
-    public function member()
+    public function trainingMember()
     {
-        return $this->belongsTo(TrainingRegistration::class);
+        return $this->belongsTo(TrainingRegistration::class, 'member_id', 'id');
     }
+
+
+    public function eventMember()
+    {
+        return $this->belongsTo(EventRegistration::class, 'member_id', 'id');
+    }
+
 }
