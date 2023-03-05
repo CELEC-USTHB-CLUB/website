@@ -40,7 +40,7 @@ Route::GROUP(['prefix' => 'contact'], function () {
 Route::GROUP(['prefix' => 'events'], function () {
     Route::GET('all', [EventController::class, 'all']);
     Route::GET('{event}', [EventController::class, 'get']);
-    Route::POST('{event}/register', [EventController::class, 'register']);
+    Route::POST('{id}/register', [EventController::class, 'register']);
 });
 
 Route::GROUP(['prefix' => 'invitation'], function () {
