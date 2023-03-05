@@ -26,7 +26,7 @@ Route::GROUP(['prefix' => 'tags'], function () {
 Route::GROUP(['prefix' => 'trainings'], function () {
     Route::GET('get', [TrainingController::class, 'all']);
     Route::GET('{training:slug}', [TrainingController::class, 'get']);
-    Route::POST('{training:slug}/register', [TrainingController::class, 'register']);
+    Route::POST('{training}/register', [TrainingController::class, 'register']);
 });
 
 Route::GROUP(['prefix' => 'team'], function () {
@@ -40,7 +40,7 @@ Route::GROUP(['prefix' => 'contact'], function () {
 Route::GROUP(['prefix' => 'events'], function () {
     Route::GET('all', [EventController::class, 'all']);
     Route::GET('{event}', [EventController::class, 'get']);
-    Route::POST('{id}/register', [EventController::class, 'register']);
+    Route::POST('{event}/register', [EventController::class, 'register']);
 });
 
 Route::GROUP(['prefix' => 'invitation'], function () {

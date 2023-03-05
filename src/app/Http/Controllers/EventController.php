@@ -22,11 +22,10 @@ class EventController extends Controller
     }
 
     public function register(
-        string $id,
+        Event $event,
         EventRegistrationRequest $request,
         EventRegistrationAction $eventRegistrationAction
     ): EventRegistration {
-        $event = Event::findOrFail($id);
         if ($event->isClosed()) {
             abort(403, 'Registration expired');
         }
