@@ -48,3 +48,13 @@ Route::GROUP(['prefix' => 'invitation'], function () {
     Route::POST('signature/paper/checkin', [CheckController::class, 'checkin']);
     Route::POST('signature/paper/checkout', [CheckController::class, 'checkout']);
 });
+
+
+
+
+
+Route::GROUP(['prefix' => 'arc'], function() {
+    Route::GET('test', function() {
+        return ['event' => 'ARC 2023'];
+    });
+});
