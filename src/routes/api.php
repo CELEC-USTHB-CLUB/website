@@ -10,6 +10,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::GROUP(['prefix' => 'member'], function () {
     Route::POST('create', [MemberController::class, 'create']);
@@ -55,6 +56,11 @@ Route::GROUP(['prefix' => 'invitation'], function () {
 
 Route::GROUP(['prefix' => 'arc'], function() {
     Route::GET('test', function() {
+        // haylik la modification li dertha ana doka 
         return ['eventName' => 'ARC 2023'];
+    });
+    // doka nti tzidi des codes
+    Route::POST('test2', function(Request $request) {
+        return ['name' => $request->get("name")];
     });
 });
