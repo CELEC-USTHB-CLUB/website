@@ -55,6 +55,6 @@ Route::GROUP(['prefix' => 'invitation'], function () {
 
 Route::GROUP(['prefix' => 'arc'], function() {
     Route::GET('test', function() {
-        return ['event' => 'ARC 2023'];
+        return ['eventName' => 'ARC 2023'];
     });
 });
