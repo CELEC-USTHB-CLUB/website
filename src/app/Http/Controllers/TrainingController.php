@@ -26,10 +26,11 @@ class TrainingController extends Controller
     }
 
     public function register(
-        Training $training,
+        int $trainingId,
         TrainingRegistrationRequest $request,
         TrainingRegistrationAction $trainingRegistrationAction
     ): TrainingRegistration {
+        $training = Training::findOrFail($trainingId);
         if ($training->isClosed()) {
             abort(403, 'Registration expired');
         }

@@ -26,7 +26,7 @@ Route::GROUP(['prefix' => 'tags'], function () {
 Route::GROUP(['prefix' => 'trainings'], function () {
     Route::GET('get', [TrainingController::class, 'all']);
     Route::GET('{training}', [TrainingController::class, 'get']);
-    Route::POST('{training}/register', [TrainingController::class, 'register']);
+    Route::POST('{trainingId}/register', [TrainingController::class, 'register']);
 });
 
 Route::GROUP(['prefix' => 'team'], function () {
