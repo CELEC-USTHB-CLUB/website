@@ -31,6 +31,12 @@
             @livewire('badge-generator')
             @livewire('export-members')
         @endif
+        @if($dataType->name === "arc_registrations")
+            @livewire('export-arc-registrations')
+        @endif
+        @if($dataType->name === "arc_teams")
+            @livewire('import-arc-teams')
+        @endif
         @include('voyager::multilingual.language-selector')
     </div>
 @stop

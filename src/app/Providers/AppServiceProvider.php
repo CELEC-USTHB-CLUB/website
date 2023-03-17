@@ -2,16 +2,17 @@
 
 namespace App\Providers;
 
-use App\Actions\ExportEventRegistrationsAction;
-use App\Actions\ExportTrainingRegisrationsAction;
 use Google\Client;
 use Google\Service\Drive;
-use Illuminate\Filesystem\FilesystemAdapter;
+use League\Flysystem\Filesystem;
+use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use League\Flysystem\Filesystem;
 use Masbug\Flysystem\GoogleDriveAdapter;
-use TCG\Voyager\Facades\Voyager;
+use Illuminate\Filesystem\FilesystemAdapter;
+use App\Actions\ExportArcRegistrationsAction;
+use App\Actions\ExportEventRegistrationsAction;
+use App\Actions\ExportTrainingRegisrationsAction;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Voyager::addAction(ExportTrainingRegisrationsAction::class);
+        Voyager::addAction(ExportEventRegistrationsAction::class);
         Voyager::addAction(ExportEventRegistrationsAction::class);
         Storage::extend('google', function ($app, $config) {
             $options = [];
