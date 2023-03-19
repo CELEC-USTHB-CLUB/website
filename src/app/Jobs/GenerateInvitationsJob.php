@@ -35,7 +35,7 @@ class GenerateInvitationsJob implements ShouldQueue
     {
         if ($this->templatePath !== null) {
             $templatePath = storage_path('app/'.$this->templatePath);
-        }else {
+        } else {
             $templatePath = null;
         }
         Excel::import(new UsersImport($this->model, $templatePath), storage_path('app/'.$this->path));

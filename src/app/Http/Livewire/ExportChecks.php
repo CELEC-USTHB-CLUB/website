@@ -2,20 +2,20 @@
 
 namespace App\Http\Livewire;
 
-use App\Training;
-use Livewire\Component;
+use App\Contracts\BatchTerminateable;
+use App\Jobs\GenerateTrainingChecksJob;
 use App\Traits\Batchable;
 use Illuminate\Bus\Batch;
-use App\Contracts\BatchTerminateable;
-use Illuminate\Support\Facades\Cache;
-use App\Jobs\GenerateTrainingChecksJob;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Component;
 
 class ExportChecks extends Component implements BatchTerminateable
 {
     use Batchable;
 
     public $model_id;
+
     public $model;
 
     public $checksZipPath;

@@ -22,7 +22,6 @@ class TrainingRegistration extends Model
 
     public function fullname(): string
     {
-        return $this->fullname;        
+        return $this->fullname;
     }
-
 }

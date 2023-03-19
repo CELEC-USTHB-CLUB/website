@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('archives', function (Blueprint $table) {
             $table->renameColumn('training_id', 'archiveable_id');
-            $table->string('arhiveable_type')->default("App\\Training");
+            $table->string('arhiveable_type')->default('App\\Training');
         });
     }
 

@@ -23,7 +23,7 @@ class EventFactory extends Factory
             'location' => 'Alger',
             'closing_at' => Carbon::now(),
             'is_closed' => false,
-            'starting_at' => Carbon::now()
+            'starting_at' => Carbon::now(),
         ];
     }
 }

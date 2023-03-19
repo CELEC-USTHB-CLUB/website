@@ -27,10 +27,9 @@ class UsersImport implements ToCollection
     {
         if ($this->templatePath === null) {
             $invitationTemplate = storage_path('app/A4 - 1INVITATION.pdf');
-        }else {
+        } else {
             $invitationTemplate = $this->templatePath;
         }
-        
 
         $folder = $this->model->getTitle().'-invitations-'.Carbon::now()->format('Y-m-d H:i:s');
         if (! is_dir(storage_path().'/app/invitations-papers/')) {

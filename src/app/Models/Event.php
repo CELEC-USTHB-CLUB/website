@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use App\Models\Check;
-use App\Models\Archive;
-use App\Models\Invitation;
-use Illuminate\Database\Eloquent\Model;
 use App\Contracts\InvitationableContract;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Event extends Model implements InvitationableContract
 {

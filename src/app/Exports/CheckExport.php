@@ -26,16 +26,18 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
     public function collection()
     {
         $class = get_class($this->model);
+
         return $this->model->checks()->get()->groupBy('member_id')->map(function ($memberChecks) use ($class) {
-            if ($class === "App\\Models\\Event") {
+            if ($class === 'App\\Models\\Event') {
                 $member = $memberChecks->first()->eventMember;
-            }elseif($class === "App\\Training") {
+            } elseif ($class === 'App\\Training') {
                 $member = $memberChecks->first()->trainingMember;
-            }else {
+            } else {
                 return [];
             }
             if ($member === null) {
                 dump($memberChecks);
+
                 return [];
             }
             $checksText = '';

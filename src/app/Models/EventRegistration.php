@@ -22,6 +22,6 @@ class EventRegistration extends Model
 
     public function fullname(): string
     {
-        return $this->lastname." ".$this->firstname;        
+        return $this->lastname.' '.$this->firstname;
     }
 }

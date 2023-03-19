@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Training;
-use Livewire\Component;
-use App\Traits\Batchable;
-use Illuminate\Bus\Batch;
-use App\Traits\HasInvitation;
-use Livewire\WithFileUploads;
 use App\Contracts\BatchTerminateable;
+use App\Traits\Batchable;
+use App\Traits\HasInvitation;
+use Illuminate\Bus\Batch;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class GenerateInvitation extends Component implements BatchTerminateable
 {
@@ -50,7 +49,7 @@ class GenerateInvitation extends Component implements BatchTerminateable
                 'template' => 'max:5024|mimes:pdf',
             ]);
             $templatePath = $this->template->store('uploaded-accepted-users');
-        }else {
+        } else {
             $templatePath = null;
         }
         $this->generate($model, $path, $templatePath);

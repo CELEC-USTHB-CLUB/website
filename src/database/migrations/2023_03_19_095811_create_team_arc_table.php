@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invitations', function (Blueprint $table) {
-            $table->renameColumn('training_id', 'invitationable_id');
-            $table->string('invitationable_type')->default('App\\Training');
+        Schema::create('team_arc', function (Blueprint $table) {
+            $table->id();
+            $table->integer('tid');
+            $table->string('nom_team');
+            $table->string('region_team');
+            $table->string('nbr_team')->nullable();
+            $table->boolean('accepted_team')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,5 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('team_arc');
     }
 };

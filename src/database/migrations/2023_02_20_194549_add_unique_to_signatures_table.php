@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('signatures', function (Blueprint $table) {
             $table->unique('paper_code');
             $table->unique('checkin_code');
-            $table->unique('checkout_code');   
+            $table->unique('checkout_code');
         });
     }
 

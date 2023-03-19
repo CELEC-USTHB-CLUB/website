@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('invitations', function (Blueprint $table) {
-            $table->renameColumn('training_id', 'invitationable_id');
-            $table->string('invitationable_type')->default('App\\Training');
+        Schema::create('test', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -26,5 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('test');
     }
 };

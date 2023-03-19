@@ -4,13 +4,13 @@ use App\Http\Controllers\CheckController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MembersArcController;
 use App\Http\Controllers\PaperController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 Route::GROUP(['prefix' => 'member'], function () {
     Route::POST('create', [MemberController::class, 'create']);
@@ -50,17 +50,9 @@ Route::GROUP(['prefix' => 'invitation'], function () {
     Route::POST('signature/paper/checkout', [CheckController::class, 'checkout']);
 });
 
+Route::GROUP(['prefix' => 'arc'], function () {
+    // api inscription arc 2
 
-
-
-
-Route::GROUP(['prefix' => 'arc'], function() {
-    Route::GET('test', function() {
-        // haylik la modification li dertha ana doka 
-        return ['eventName' => 'ARC 2023'];
-    });
-    // doka nti tzidi des codes
-    Route::POST('test2', function(Request $request) {
-        return ['name' => $request->get("name")];
-    });
+    Route::POST('inscriptionMembreArc', [MembersArcController::class, 'store']);
+    Route::GET('inscriptionMembreArc2', [MembersArcController::class, 'index']);
 });
