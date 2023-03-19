@@ -35,7 +35,7 @@ class CheckExport implements FromCollection, WithHeadings, ShouldAutoSize
                 return [];
             }
             if ($member === null) {
-                dump($memberChecks);
+                // dump($memberChecks);
                 return [];
             }
             $checksText = '';
