@@ -2,40 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Members_arc;
 use App\Models\Team_arc;
+use App\Models\Members_arc;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class MembersArcController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return ['eventName' => 'ARC 2023'];
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request): array
     {
         $validatedData = $request->validate([
@@ -73,10 +48,7 @@ class MembersArcController extends Controller
             // inscription mmbr 1
             // generate team id
             generate_id:
-            $tid = rand(1, 9999999); // Random int
-            if (Team_arc::where('tid', $tid)->get()->count() > 0) {
-                goto generate_id;
-            }
+            $tid = Str::uuid();
             $memberarc->id_team = $tid;
 
             // create team

@@ -51,8 +51,5 @@ Route::GROUP(['prefix' => 'invitation'], function () {
 });
 
 Route::GROUP(['prefix' => 'arc'], function () {
-    // api inscription arc 2
-
     Route::POST('inscriptionMembreArc', [MembersArcController::class, 'store']);
-    Route::GET('inscriptionMembreArc2', [MembersArcController::class, 'index']);
 });
