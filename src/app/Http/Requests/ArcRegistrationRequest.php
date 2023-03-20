@@ -35,7 +35,7 @@ class ArcRegistrationRequest extends FormRequest
             'motivation' => ['required'],
             'password' => ['required'],
             'tshirt' => ['required'],
-            'id_card' => ['required', 'mimetypes:image/jpeg,image/jpg,image/png|max:15042']
+            'id_card' => ['required', 'mimetypes:image/jpeg,image/jpg,image/png','max:15042']
         ];
     }
 }
