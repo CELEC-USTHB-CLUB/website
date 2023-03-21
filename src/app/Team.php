@@ -3,8 +3,9 @@
 namespace App;
 
 use App\Models\TeamImage;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ArcRegistration;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Team extends Model
 {
@@ -17,5 +18,10 @@ class Team extends Model
     public function image()
     {
         return $this->hasOne(TeamImage::class);
+    }
+
+    public function members()
+    {
+        return $this->hasMany(ArcRegistration::class);
     }
 }

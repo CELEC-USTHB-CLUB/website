@@ -31,15 +31,17 @@ class ArcRegistrationController extends Controller
             $request->validate([
                 'team_title' => ['required', 'unique:arc_teams,title']
             ]);
-            ArcTeam::create([
+            $team = ArcTeam::create([
                 'title' => $request->get('team_title'),
                 'code' => $team_code
             ]);
         } else {
             $team_code = $request->get('team_code');
-            ArcTeam::where('code', $team_code)->firstOrFail();
+            $team = ArcTeam::where('code', $team_code)->firstOrFail();
         }
-
+        if ($team->members->count() >= 5) {
+            return abort(404);
+        }
         return $arcMemberRegistrationAction->handle(
             $team_code,
             $request->get('team_title'),
