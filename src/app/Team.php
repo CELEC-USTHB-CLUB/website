@@ -20,8 +20,5 @@ class Team extends Model
         return $this->hasOne(TeamImage::class);
     }
 
-    public function members()
-    {
-        return $this->hasMany(ArcRegistration::class);
-    }
+    
 }

@@ -39,7 +39,7 @@ class ArcRegistrationController extends Controller
             $team_code = $request->get('team_code');
             $team = ArcTeam::where('code', $team_code)->firstOrFail();
         }
-        if ($team->members->count() >= 5) {
+        if ($team->users->count() >= 5) {
             return abort(404);
         }
         return $arcMemberRegistrationAction->handle(
