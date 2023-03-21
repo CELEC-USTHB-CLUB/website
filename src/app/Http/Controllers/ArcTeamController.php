@@ -9,6 +9,11 @@ class ArcTeamController extends Controller
 {
     public function get(string $code): ArcTeam
     {
-        return ArcTeam::where('code', $code)->firstOrfail();
+        $team = ArcTeam::where('code', $code)->firstOrfail();
+        if ($team->users->count() >= 5) {
+            return abort(404);
+        }
+
+        return $team;
     }
 }
