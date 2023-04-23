@@ -30,7 +30,9 @@ class ArcRegistrationsImport implements ToCollection
         if (!is_dir(storage_path() . '/app/invitations-papers/')) {
             mkdir(storage_path() . '/app/invitations-papers/');
         }
-        mkdir(storage_path() . '/app/invitations-papers/' . $folder);
+        if (!is_dir(storage_path() . '/app/invitations-papers/' . $folder)) {
+            mkdir(storage_path() . '/app/invitations-papers/' . $folder);
+        }
         foreach ($rows as $row) {
             $team = ArcTeam::where('code', $row[1])->first();
             $user = ArcRegistration::find($row[0]);
