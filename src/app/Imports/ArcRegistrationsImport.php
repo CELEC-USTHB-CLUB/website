@@ -80,7 +80,10 @@ class ArcRegistrationsImport implements ToCollection
         }
         $zip = new Zip;
         $zip->create(storage_path() . '/app/public/archive-invitations-papers/' . $folder . '.zip');
-        $zip->add(storage_path() . '/app/invitations-papers/' . $folder . '/');
+        if (! $zip->has(storage_path() . '/app/invitations-papers/' . $folder . '/')) {
+            $zip->add(storage_path() . '/app/invitations-papers/' . $folder . '/');
+        }
+        
         $zip->close();
         Cache::put('exported-arc-invitations-path', 'archive-invitations-papers/' . $folder . '.zip');
     }
