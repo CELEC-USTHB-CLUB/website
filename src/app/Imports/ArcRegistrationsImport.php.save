@@ -99,7 +99,7 @@ class ArcRegistrationsImport implements ToCollection
     public function writeInscriptionDate(Fpdi $fpdi, string $text)
     {
         $left = 125;
-        $top = 32;
+        $top = 30;
         $fpdi->Text($left, $top, Carbon::parse($text)->format('Y-m-d'));
 
         return $this;

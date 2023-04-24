@@ -49,12 +49,12 @@ class ArcRegistration extends Model implements InvitationableContract
 
     public function getStartDate(): string
     {
-        return '2023-10-10';   
+        return '2023-04-29';   
     }
 
     public function getLocation(): string
     {
-        return 'Alger';        
+        return $this->wilaya;        
     }
 
     public function invitations(): MorphMany
