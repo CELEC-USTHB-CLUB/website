@@ -57,6 +57,5 @@ services:
   redis:
     image: redis:6.2
     container_name: redis_celec_web
-    image: 'bitnami/redis:latest'
     networks:
       - celec-website-network
