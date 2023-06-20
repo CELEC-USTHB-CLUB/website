@@ -19,7 +19,12 @@ RUN apt-get update && apt-get install -y \
     unzip
 RUN docker-php-ext-install zip
 RUN pecl install zlib zip
-RUN pecl install redis
+ENV PHPREDIS_VERSION 5.3.7
+
+RUN mkdir -p /usr/src/php/ext/redis \
+    && curl -L https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
+    && echo 'redis' >> /usr/src/php-available-exts \
+    && docker-php-ext-install redis
 RUN apt-get install libonig-dev -y
 RUN docker-php-ext-install mbstring
 RUN apt-get install libpng-dev -y
